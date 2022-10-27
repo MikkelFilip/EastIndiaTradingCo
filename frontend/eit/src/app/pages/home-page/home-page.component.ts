@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
@@ -24,9 +25,13 @@ export class HomePageComponent implements OnInit {
     "Box (40x40x40)",
     "Crate (200x200x200)",
   ]
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  public search() {
+    this.router.navigateByUrl("/routes");
   }
 
 }

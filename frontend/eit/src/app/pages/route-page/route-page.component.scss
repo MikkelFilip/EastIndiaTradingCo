@@ -1,3 +1,27 @@
 .sort-by-input.form-select {
-  max-width: 100px;
+  max-width: 120px;
+}
+
+.route-list {
+  .route-item {
+    background: #e6ecff;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    margin-bottom: 15px;
+    cursor: pointer;
+    .route-item-information {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .route-item-path {
+      margin-top: 10px;
+      
+    }
+    &.selected {
+      border-color: #001F7E;
+      background-color: #b0c3ff;
+    }
+  }
 }

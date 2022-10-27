@@ -1,0 +1,56 @@
+.route-path {
+  .route-path-item {
+    display: flex;
+    .left-part {
+      text-align: end;
+      width: 50px;
+      margin-top: 25px;
+      .company {
+        font-size: 13px;
+        color: #a5a6a7;
+      }
+    }
+    .divider {
+      border-left: solid 1px #444;
+      margin-left: 20px;
+      margin-right: 20px;
+      position: relative;
+      &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        margin-top: 4px;
+        width: 17px;
+        height: 17px;
+        position: absolute;
+        margin-left: -9px;
+        border-radius: 10px;
+        background-color: #001F7E;
+        opacity: 0.25;
+        z-index: 0;
+      }
+      &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        margin-top: 8px;
+        width: 9px;
+        height: 9px;
+        margin-left: -5px;
+        background-color: #fff;
+        border-radius: 5px;
+        border: 2px solid blue;
+        z-index: 1;
+      }
+    }
+    .right-part {
+      margin-bottom: 20px;
+      .city {
+        color: #fff;
+        font-size: 16px;
+        margin-bottom: 3px;
+        font-weight: 600;
+      }
+    }
+  }
+}
