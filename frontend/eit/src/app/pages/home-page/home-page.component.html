@@ -1,0 +1,104 @@
+<div class="wrapper">
+  <div class="page-title">Search Route</div>
+  <form>
+    <div class="form-group">
+      <label>From</label>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <i class="fa fa-map-marker"></i>
+          </div>
+        </div>
+        <ng-select
+          [items]="locationOptions"
+          placeholder="From location"
+          autofocus
+        ></ng-select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>To</label>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <i class="fa fa-map-marker"></i>
+          </div>
+        </div>
+        <ng-select
+          [items]="locationOptions"
+          placeholder="To location"
+          autofocus
+        ></ng-select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Date</label>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <i class="fa fa-calendar"></i>
+          </div>
+        </div>
+        <input type="date" class="form-control" placeholder="Date" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Cargo type</label>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <i class="fa fa-suitcase"></i>
+          </div>
+        </div>
+        <ng-select
+          [items]="cargoTypeOptions"
+          placeholder="Cargo type"
+          autofocus
+        ></ng-select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Cargo size</label>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <i class="fa fa-arrows-alt"></i>
+          </div>
+        </div>
+        <ng-select
+          [items]="cargoSizeOptions"
+          placeholder="Cargo type"
+          autofocus
+        ></ng-select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <label>Weight</label>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-balance-scale"></i>
+              </div>
+            </div>
+            <input class="form-control" placeholder="Weight" />
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label>Sort By</label>
+          <ng-select
+            [items]="sortByOptions"
+            placeholder="Sort By"
+            autofocus
+          ></ng-select>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end">
+      <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+  </form>
+</div>
