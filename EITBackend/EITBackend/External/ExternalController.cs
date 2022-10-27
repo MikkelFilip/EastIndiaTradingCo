@@ -4,11 +4,20 @@ namespace EITBackend.External
 {
     [ApiController]
     [Route("/api/external/EIT/[controller]")]
-    public class ExternalController : Controller
+    public class ExternalController : ControllerBase
     {
-        public IActionResult Index()
+
+        private readonly ILogger<ExternalController> _logger;
+
+        public ExternalController(ILogger<ExternalController> logger)
         {
-            return View();
+            _logger = logger;
+        }
+
+        [HttpGet(Name = "GetConnectedCities")]
+        public string GetConnectedCities()
+        {
+            return "it works";
         }
     }
 }
