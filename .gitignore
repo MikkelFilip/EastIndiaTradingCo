@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/EITBackend/.vs/EITBackend/DesignTimeBuild/.dtbcache.v2
+/EITBackend/.vs/ProjectEvaluation/eitbackend.metadata.v2
+/EITBackend/.vs/ProjectEvaluation/eitbackend.projects.v2
