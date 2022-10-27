@@ -22,7 +22,7 @@ export class ReportPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadingService.show()
-    this.http.get("https://localhost:7022/BookingHistory/GetMostUsedRoutes").subscribe({
+    this.http.get("https://wa-eit-dk1.azurewebsites.net/BookingHistory​/GetMostUsedRoutes").subscribe({
       next: (result: any) => {
         this.routes = result;
       },
