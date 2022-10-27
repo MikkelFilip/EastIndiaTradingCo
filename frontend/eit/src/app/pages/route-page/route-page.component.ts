@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataService } from 'src/app/services/dataService';
 
 @Component({
   selector: 'app-route-page',
@@ -13,65 +14,71 @@ export class RoutePageComponent implements OnInit {
 
   public selectedSortBy = "Cheapest";
   public selectedRoute?: any;
-  
+
   public sortByOptions = [
     "Cheapest", "Fastest"
   ];
-  public routes = [
-    {
-      id: "1",
-      duration: 12,
-      price: 100,
-      cities: [
-        "Cairo", "Omdurman", "Darfur", "Congo"
-      ],
-      companies: [
-        "TL", "TL", "OA"
-      ],
-      isCollapsed: true,
-    },
-    {
-      id: "2",
-      duration: 15,
-      price: 90,
-      cities: [
-        "Cairo", "Omdurman", "Darfur", "Congo"
-      ],
-      companies: [
-        "TL", "TL", "OA"
-      ],
-      isCollapsed: true,
-    },
-    {
-      id: "3",
-      duration: 8,
-      price: 80,
-      cities: [
-        "Cairo", "Omdurman", "Darfur", "Congo"
-      ],
-      companies: [
-        "TL", "TL", "OA"
-      ],
-      isCollapsed: true,
-    },
-    {
-      id: "4",
-      duration: 5,
-      price: 200,
-      cities: [
-        "Cairo", "Omdurman", "Darfur", "Congo"
-      ],
-      companies: [
-        "TL", "TL", "OA"
-      ],
-      isCollapsed: true,
-    }
-  ]
+  public routes: any[] = [];
 
-  constructor(private router: Router) { }
+  // public routes = [
+  //   {
+  //     id: "1",
+  //     duration: 12,
+  //     price: 100,
+  //     cities: [
+  //       "Cairo", "Omdurman", "Darfur", "Congo"
+  //     ],
+  //     companies: [
+  //       "TL", "TL", "OA"
+  //     ],
+  //     isCollapsed: true,
+  //   },
+  //   {
+  //     id: "2",
+  //     duration: 15,
+  //     price: 90,
+  //     cities: [
+  //       "Cairo", "Omdurman", "Darfur", "Congo"
+  //     ],
+  //     companies: [
+  //       "TL", "TL", "OA"
+  //     ],
+  //     isCollapsed: true,
+  //   },
+  //   {
+  //     id: "3",
+  //     duration: 8,
+  //     price: 80,
+  //     cities: [
+  //       "Cairo", "Omdurman", "Darfur", "Congo"
+  //     ],
+  //     companies: [
+  //       "TL", "TL", "OA"
+  //     ],
+  //     isCollapsed: true,
+  //   },
+  //   {
+  //     id: "4",
+  //     duration: 5,
+  //     price: 200,
+  //     cities: [
+  //       "Cairo", "Omdurman", "Darfur", "Congo"
+  //     ],
+  //     companies: [
+  //       "TL", "TL", "OA"
+  //     ],
+  //     isCollapsed: true,
+  //   }
+  // ]
+
+  constructor(
+    private router: Router,
+    private dataService: DataService,
+  ) {}
 
   ngOnInit(): void {
-    this.sortRoute()
+    this.routes = this.dataService.possiableRoutes;
+    this.sortRoute();
   }
 
   public sortRoute() {

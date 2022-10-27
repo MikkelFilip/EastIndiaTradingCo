@@ -36,9 +36,10 @@
       border-radius: 10px;
       border: 1px solid #ced4da;
       max-width: 800px;
-      min-height: 700px;
+      height: 700px;
       display: flex;
       flex-direction: column;
+      overflow: auto;
     }
   }
 }
