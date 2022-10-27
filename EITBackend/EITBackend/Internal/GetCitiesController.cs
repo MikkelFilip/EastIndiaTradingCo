@@ -7,10 +7,6 @@ namespace EITBackend.Internal
     [Route("[controller]")]
     public class GetCitiesController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
 
         private readonly ILogger<GetCitiesController> _logger;
         private DataContext context;
@@ -18,13 +14,6 @@ namespace EITBackend.Internal
         {
             _logger = logger;
             this.context = context;
-            //context.cities.Add(
-            //    new Cities()
-            //    {
-            //        Id = Guid.NewGuid(),
-            //        CityName = "sdad"
-            //    });
-            //context.SaveChanges();
         }
 
         [HttpGet(Name = "GetCities")]

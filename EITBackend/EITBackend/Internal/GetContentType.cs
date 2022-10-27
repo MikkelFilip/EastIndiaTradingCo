@@ -1,3 +1,4 @@
+using EITBackend.Common.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EITBackend.Internal
@@ -6,28 +7,20 @@ namespace EITBackend.Internal
     [Route("[controller]")]
     public class GetContentTypeController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
 
         private readonly ILogger<GetContentTypeController> _logger;
-
-        public GetContentTypeController(ILogger<GetContentTypeController> logger)
+        private DataContext context;
+        public GetContentTypeController(ILogger<GetContentTypeController> logger, DataContext context)
         {
             _logger = logger;
+            this.context = context;
         }
 
         [HttpGet(Name = "GetContentType")]
-        public IEnumerable<WeatherForecast> Get()
+        public IEnumerable<ContentType> Get()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return context.contentTypes.ToList();
+
         }
     }
 }

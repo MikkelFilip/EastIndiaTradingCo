@@ -3,6 +3,7 @@
 using EITBackend.Common.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using System.Collections.Generic;
 
 public class DataContext : DbContext
 {
@@ -24,4 +25,8 @@ public class DataContext : DbContext
     }
 
     public DbSet<Cities> cities { get; set; }
+    public DbSet<BookingHistory> bookingHistories { get; set; }
+    public DbSet<ConnectedCities> connectedCities { get; set; }
+    public DbSet<ContentType> contentTypes { get; set; }
+
 }
