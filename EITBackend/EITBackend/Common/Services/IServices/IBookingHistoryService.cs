@@ -9,6 +9,8 @@ namespace EITBackend.Common.Services.IServices
     public interface IBookingHistoryService
     {
         public BookingHistory PostBookingHistory(BookingHistory bookingHistory);
+
+        public List<MostUsedRoute> GetMostUsedRoutes();
     }
 
 }
