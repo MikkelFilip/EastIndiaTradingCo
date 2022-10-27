@@ -18,20 +18,13 @@ namespace EITBackend.Internal
         {
             _logger = logger;
             this.context = context;
-            //context.cities.Add(
-            //    new Cities()
-            //    {
-            //        Id = Guid.NewGuid(),
-            //        CityName = "sdad"
-            //    });
-            //context.SaveChanges();
         }
 
         [HttpGet(Name = "GetCities")]
         public IEnumerable<Cities> Get()
         {
             return context.cities.ToList();
-            
+
         }
     }
 }
