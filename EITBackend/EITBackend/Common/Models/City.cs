@@ -2,7 +2,7 @@
 
 namespace EITBackend.Common.Models
 {
-    public class Cities
+    public class City
     {
 
         /// <summary>

@@ -7,10 +7,7 @@ namespace EITBackend.Internal
     [Route("[controller]")]
     public class GetCitiesController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
+
 
         private readonly ILogger<GetCitiesController> _logger;
         private DataContext context;
@@ -21,7 +18,7 @@ namespace EITBackend.Internal
         }
 
         [HttpGet(Name = "GetCities")]
-        public IEnumerable<Cities> Get()
+        public IEnumerable<City> Get()
         {
             return context.cities.ToList();
 

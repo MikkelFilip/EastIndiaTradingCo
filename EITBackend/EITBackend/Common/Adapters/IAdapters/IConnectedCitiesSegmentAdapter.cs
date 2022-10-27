@@ -4,6 +4,6 @@ namespace EITBackend.Common.Adapters.IAdapters
 {
     public interface IConnectedCitiesSegmentAdapter
     {
-        IEnumerable<ConnectedCitiesSegment> GetConnectedCitiesSegment(int cityId);
+        IEnumerable<ConnectedCitiesSegment> GetConnectedCitiesSegment(string name);
     }
 }

@@ -54,6 +54,6 @@ internal class Program
 
         app.Run();
 
-        
+
     }
 }

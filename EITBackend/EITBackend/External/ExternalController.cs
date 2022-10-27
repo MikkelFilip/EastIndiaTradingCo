@@ -1,11 +1,12 @@
 ﻿using EITBackend.Common.DTOs;
+using EITBackend.Common.Models;
 using EITBackend.Common.Services.IServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EITBackend.External
 {
     [ApiController]
-    [Route("/api/external/EIT/[controller]")]
+    [Route("/api/GetConnectedCities")]
     public class ExternalController : Controller
     {
 
@@ -18,8 +19,8 @@ namespace EITBackend.External
             this.logger = logger;
         }
 
-        [HttpGet(Name = "GetConnectedCities")]
-        public GetConnectedCities GetConnectedCitiesEndpoint([FromQuery(Name = "cityName")] string cityName, [FromQuery(Name = "weight")] int weight, [FromQuery(Name = "contentType")] string contentType, [FromQuery(Name = "dateTime")] DateTime dateTime, [FromQuery(Name = "packageType")] string packageType)
+        [HttpGet(Name = "{cityName}")]
+        public GetConnectedCities GetConnectedCitiesEndpoint(string cityName, [FromQuery(Name = "weight")] int weight, [FromQuery(Name = "contentType")] string contentType, [FromQuery(Name = "dateTime")] DateTime dateTime, [FromQuery(Name = "packageType")] string packageType)
         {
             return connectedCitiesService.GetConnectedCities(cityName, weight, contentType, dateTime, packageType);
         }
