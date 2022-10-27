@@ -1,4 +1,7 @@
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { LoadingScreenService } from 'src/app/services/loading.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-report-page',
@@ -10,36 +13,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportPageComponent implements OnInit {
 
-  public routes = [
-    {
-      from: "Cairo",
-      to: "Congo",
-      number: 128,
-    },
-    {
-      from: "Cairo",
-      to: "Congo",
-      number: 112,
-    },
-    {
-      from: "Cairo",
-      to: "Congo",
-      number: 97,
-    },
-    {
-      from: "Cairo",
-      to: "Congo",
-      number: 85,
-    },
-    {
-      from: "Cairo",
-      to: "Congo",
-      number: 81,
-    },
-  ]
-  constructor() { }
+  public routes: any[] = []
+  constructor(
+    private http: HttpClient,
+    private toastService: ToastService,
+    private loadingService: LoadingScreenService,
+  ) { }
 
   ngOnInit(): void {
+    this.loadingService.show()
+    this.http.get("https://localhost:7022/BookingHistory/GetMostUsedRoutes").subscribe({
+      next: (result: any) => {
+        this.routes = result;
+      },
+      error: (err: HttpErrorResponse) => {
+        this.toastService.show("Error: " + err.message, { classname: 'bg-danger text-light', delay: 5000 });
+      }
+    })
+      .add(() => { this.loadingService.hidden() });
   }
 
 }
