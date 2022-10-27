@@ -14,11 +14,11 @@ namespace EITBackend.Common.Models
         /// <summary>
         /// Reference Id of a ContentType
         /// </summary>
-        public String? ContentTypeReferenceId { get; set; }
+        public string? ContentTypeReferenceId { get; set; }
 
         /// <summary>
         /// Name of a ContentType
         /// </summary>
-        public String? Name { get; set; }
+        public string? Name { get; set; }
     }
 }
