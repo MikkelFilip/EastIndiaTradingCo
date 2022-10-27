@@ -15,13 +15,13 @@ namespace EITBackend.Common.Models
         /// One of the cities with is a part of the tavel
         /// </summary>
         [Required]
-        public string? FirstCity { get; set; }
+        public int FirstCity { get; set; }
 
         /// <summary>
         /// The other cities with is a part of the tavel
         /// </summary>
         [Required]
-        public string? SecondCity { get; set; }
+        public int SecondCity { get; set; }
 
         /// <summary>
         /// The number of segments between to cities

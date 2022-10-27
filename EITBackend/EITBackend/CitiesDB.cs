@@ -26,7 +26,7 @@ public class DataContext : DbContext
 
     public DbSet<Cities> cities { get; set; }
     public DbSet<BookingHistory> bookingHistories { get; set; }
-    public DbSet<ConnectedCities> connectedCities { get; set; }
+    public DbSet<ConnectedCitiesSegments> connectedCitiesSegments { get; set; }
     public DbSet<ContentType> contentTypes { get; set; }
 
 }
