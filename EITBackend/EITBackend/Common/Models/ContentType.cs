@@ -9,7 +9,7 @@ namespace EITBackend.Common.Models
         /// Unique id of a ContentType
         /// </summary>
         [Required]
-        public Guid Id { get; set; }
+        public Guid ContentTypeId { get; set; }
 
         /// <summary>
         /// Reference Id of a ContentType
