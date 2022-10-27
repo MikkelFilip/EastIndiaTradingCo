@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +13,9 @@ import { InformationPageComponent } from './pages/information-page/information-p
 import { ConfirmationPageComponent } from './pages/confirmation-page/confirmation-page.component';
 import { ReportPageComponent } from './pages/report-page/report-page.component';
 import { RoutePathComponent } from './components/route-path/route-path.component';
+import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
+import { ToastComponent } from './components/toast/toast.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,9 @@ import { RoutePathComponent } from './components/route-path/route-path.component
     ConfirmationPageComponent,
     ReportPageComponent,
     RoutePathComponent,
+    LoadingScreenComponent,
+    ToastComponent,
+    LoadingScreenComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,6 +37,8 @@ import { RoutePathComponent } from './components/route-path/route-path.component
     NgbModule,
     NgSelectModule,
     FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
