@@ -4,7 +4,10 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-information-page',
   templateUrl: './information-page.component.html',
-  styleUrls: ['./information-page.component.scss']
+  styleUrls: ['./information-page.component.scss'],
+  host: {
+    class: 'd-flex flex-column flex-grow-1'
+  }
 })
 export class InformationPageComponent implements OnInit {
 
