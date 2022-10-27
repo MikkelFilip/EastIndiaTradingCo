@@ -31,7 +31,7 @@ namespace EITBackend.Common.Adapters
                 .ToList()
                 .Select(obj => new MostUsedRoute()
                 {
-                    NumberOfRoutes = obj.NumberOfRoutes,
+                    NumberOfShipments = obj.NumberOfRoutes,
                     FromCity = cities.Find(city => city.CityId == obj.FromCity)!,
                     ToCity = cities.Find(city => city.CityId == obj.ToCity)!
                 })
