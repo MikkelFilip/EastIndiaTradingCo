@@ -4,7 +4,7 @@ namespace EITBackend.Common.DTOs
 {
     public class MostUsedRoute
     {
-        public int NumberOfRoutes { get; set; }
+        public int NumberOfShipments { get; set; }
 
         public City FromCity { get; set; } = null!;
 
