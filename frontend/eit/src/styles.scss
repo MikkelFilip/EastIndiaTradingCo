@@ -1,0 +1,41 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import "~bootstrap/scss/bootstrap";
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+.input-group-prepend .input-group-text {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  i.fa {
+    height: 24px;
+    width: 15px;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+ng-select {
+  flex-grow: 1;
+  .ng-select-container {
+    height: 38px !important;
+  }
+}
+
+.input-group .ng-select-container {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+.page-wrapper {
+  padding: 0 25px;
+  .page-title {
+    font-weight: 500;
+    text-align: center;
+    font-size: 25px;
+    padding: 10px 0;
+  }
+}
+
