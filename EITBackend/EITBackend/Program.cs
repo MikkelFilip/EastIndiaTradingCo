@@ -1,10 +1,15 @@
-﻿
+
+using EITBackend.Common.Adapters;
+using EITBackend.Common.Adapters.IAdapters;
+using EITBackend.Common.Services;
+using EITBackend.Common.Services.IServices;
 
 using EITBackend;
 using EITBackend.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+
 
 internal class Program
 {
@@ -13,12 +18,12 @@ internal class Program
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
-
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
-
+        builder.Services.AddScoped<IConnectedCitiesService, ConnectedCitiesService>();
+        builder.Services.AddScoped<IConnectedCitiesSegmentAdapter, ConnectedCitiesSegmentAdapter>();
         // DB Connection
         builder.Services.Configure<ConnectionStringOptions>(builder.Configuration.GetSection(ConnectionStringOptions.ConnectionStrings));
         var connectionStringOptions = new ConnectionStringOptions();
