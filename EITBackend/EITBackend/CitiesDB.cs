@@ -23,5 +23,7 @@ public class DataContext : DbContext
         options.UseSqlServer(configuration.GetConnectionString("WebApiDatabase"));
     }
 
-    public DbSet<Cities> cities { get; set; }
+    public DbSet<City> cities { get; set; }
+    public DbSet<ConnectedCitiesSegment> connectedCitiesSegments { get; set; }
+
 }

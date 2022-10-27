@@ -5,24 +5,23 @@ namespace EITBackend.Common.Adapters
 {
     public class ConnectedCitiesSegmentAdapter : IConnectedCitiesSegmentAdapter
     {
-        public ConnectedCitiesSegmentAdapter()
+        private DataContext context;
+        public ConnectedCitiesSegmentAdapter(DataContext context)
+        {
+            this.context = context;
+        }
+        //TODO: Change string name to int cityId
+        public IEnumerable<ConnectedCitiesSegment> GetConnectedCitiesSegment(String cityName)
         {
 
+            City city = context.cities.Where(city => city.Name == cityName).FirstOrDefault();
+            List<ConnectedCitiesSegment> connectedCitiesSegments = QueryConnectedCitiesSegment(city);
+            return connectedCitiesSegments;
         }
 
-        public IEnumerable<ConnectedCitiesSegment> GetConnectedCitiesSegment(int cityId)
+        private List<ConnectedCitiesSegment> QueryConnectedCitiesSegment(City city)
         {
-            List<ConnectedCitiesSegment> connectedCitiesSegments = new List<ConnectedCitiesSegment>();
-
-            connectedCitiesSegments.Add(new ConnectedCitiesSegment
-            {
-                ConnectedCitiesSegmentId = 1,
-                FromCityId = 1,
-                ToCityId = 2,
-                Segments = 3,
-            });
-
-            return connectedCitiesSegments;
+            return context.connectedCitiesSegments.Where(segment => segment.FromCityId == city.CityId).ToList();
         }
     }
 }

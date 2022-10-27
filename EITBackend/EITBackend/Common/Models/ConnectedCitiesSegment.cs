@@ -8,6 +8,7 @@ namespace EITBackend.Common.Models
         /// Unique id of a ConnectedCitiesSegment
         /// </summary>
         [Required]
+        [Key]
         public int ConnectedCitiesSegmentId { get; set; }
 
         /// <summary>
