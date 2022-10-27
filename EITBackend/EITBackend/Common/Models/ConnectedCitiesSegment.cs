@@ -8,17 +8,17 @@ namespace EITBackend.Common.Models
         /// Unique id of a ConnectedCitiesSegment
         /// </summary>
         [Required]
-        public Guid ConnectedCitiesSegmentId { get; set; }
+        public int ConnectedCitiesSegmentId { get; set; }
 
         /// <summary>
         /// Unique Id of the from city
         /// </summary>
-        public Guid FromCityId { get; set; }
+        public int? FromCityId { get; set; }
 
         /// <summary>
         /// Unique Id of the to city
         /// </summary>
-        public Guid ToCityId { get; set; }
+        public int? ToCityId { get; set; }
 
         /// <summary>
         /// Number of segments
