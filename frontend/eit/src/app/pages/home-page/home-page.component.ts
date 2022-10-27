@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -44,11 +45,12 @@ export class HomePageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getLocations();
+    this.initLocations();
+
     this.form = this.fb.group({
       from: [null, Validators.required],
       to: [null, Validators.required],
-      date: [null, Validators.required],
+      date: [null, [Validators.required]],
       cargoType: [this.cargoTypeOptions[0], Validators.required],
       cargoSize: [this.cargoSizeOptions[0], Validators.required],
       weight: [0, Validators.required],
@@ -56,9 +58,9 @@ export class HomePageComponent implements OnInit {
     });
   }
 
-  public getLocations() {
-    this.http.get("https://wa-eit-dk1.azurewebsites.net/getCities").subscribe(result => {
-      console.log(result);
+  public initLocations() {
+    this.http.get("https://wa-eit-dk1.azurewebsites.net/getCities").subscribe((result: any) => {
+      this.locationOptions = result.map((location: any) => location.name);
     });
   }
 
