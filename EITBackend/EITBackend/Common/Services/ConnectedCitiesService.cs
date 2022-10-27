@@ -14,14 +14,17 @@ namespace EITBackend.Common.Services
         /// </summary>
         /// <param name="transportOperatorAdapter">TransportOperator Adapter for connecting Drip.</param>
         /// <param name="logger">Logger.</param>
-        public ConnectedCitiesService(IConnectedCitiesSegmentAdapter connectedCitiesSegmentAdapter, ILogger<ConnectedCitiesService> logger)
+        public ConnectedCitiesService(IConnectedCitiesSegmentAdapter connectedCitiesSegmentAdapter, ICityAdapter cityAdapter, ILogger<ConnectedCitiesService> logger)
         {
             ConnectedCitiesSegmentAdapter = connectedCitiesSegmentAdapter;
+            CityAdapter = cityAdapter;
             Logger = logger;
             Logger.LogInformation($"{nameof(ConnectedCitiesService)} created");
         }
 
         private IConnectedCitiesSegmentAdapter ConnectedCitiesSegmentAdapter { get; }
+
+        private ICityAdapter CityAdapter { get; }
 
         private ILogger<ConnectedCitiesService> Logger { get; }
 
@@ -34,16 +37,21 @@ namespace EITBackend.Common.Services
                 foreach (ConnectedCitiesSegment connectedCitySegment in connectedCitySegments)
                 {
                     int duration = connectedCitySegment.Segments * 12;
-                    Double price = this.CalculatePrice(connectedCitySegment.Segments, dateTime);
+                    Double price = this.CalculatePrice(connectedCitySegment.Segments, dateTime, contentType);
 
-                    ConnectedCities connectedCity = new()
+                    int? toCityId = connectedCitySegment.ToCityId;
+                    if (toCityId != null)
                     {
-                        CityName = "Cairo",
-                        Price = price,
-                        Duration = duration
-                    };
+                        ConnectedCities connectedCity = new()
+                        {
+                            CityName = CityAdapter.GetCityName((int)toCityId),
+                            Price = price,
+                            Duration = duration
+                        };
 
-                    connectedCities.Add(connectedCity);
+                        connectedCities.Add(connectedCity);
+                    }
+
                 }
             }
 
@@ -56,8 +64,9 @@ namespace EITBackend.Common.Services
         }
 
 
-        private Double CalculatePrice(int segment, DateTime dateTime)
+        private Double CalculatePrice(int segment, DateTime dateTime, string contentType)
         {
+            contentType = contentType.ToLower();
             int initialPrice = 5;
             double price = 0.0;
             if (5 < dateTime.Month && dateTime.Month < 10)
@@ -67,7 +76,23 @@ namespace EITBackend.Common.Services
 
             price = initialPrice * segment;
 
-            //TODO:
+            int extraChargesPercentage = 0;
+            switch (contentType)
+            {
+                case "weapons":
+                    extraChargesPercentage = 20;
+                    break;
+                case "live animals":
+                    extraChargesPercentage = 25;
+                    break;
+                case "refrigerated goods":
+                    extraChargesPercentage = 10;
+                    break;
+                default:
+                    break;
+            }
+
+            price += (extraChargesPercentage * price)/100;
             return price;
         }
     }

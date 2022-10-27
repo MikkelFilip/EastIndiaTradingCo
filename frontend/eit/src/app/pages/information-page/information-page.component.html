@@ -1,33 +1,67 @@
 <div class="page-wrapper d-flex flex-column flex-grow-1">
   <div class="page-title">Customer information</div>
-  <form class="d-flex flex-column flex-grow-1">
-    <div class="form-group">
+  <form
+    class="d-flex flex-column flex-grow-1"
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+  >
+    <div class="form-group mb-3">
       <label>Name</label>
-      <div class="input-group mb-3">
+      <div class="input-group">
         <div class="input-group-prepend">
           <div class="input-group-text">
             <i class="fa fa-id-card"></i>
           </div>
         </div>
-        <input class="form-control" placeholder="Name" />
+        <input
+          class="form-control"
+          placeholder="Name"
+          formControlName="name"
+          [class.invalid]="isFormControlInvalid('name')"
+        />
       </div>
+      <ng-container *ngIf="isFormControlInvalid('name')">
+        <div
+          *ngIf="isFormControlHasError('name', 'required')"
+          class="form-text text-danger"
+        >
+          This field is required
+        </div>
+      </ng-container>
     </div>
-    <div class="form-group">
+    <div class="form-group mb-3">
       <label>Email</label>
-      <div class="input-group mb-3">
+      <div class="input-group">
         <div class="input-group-prepend">
           <div class="input-group-text">
             <i class="fa fa-envelope"></i>
           </div>
         </div>
-        <input class="form-control" placeholder="Email" />
+        <input
+          class="form-control"
+          placeholder="Email"
+          formControlName="email"
+          [class.invalid]="isFormControlInvalid('email')"
+        />
       </div>
+      <ng-container *ngIf="isFormControlInvalid('email')">
+        <div
+          *ngIf="isFormControlHasError('email', 'required')"
+          class="form-text text-danger"
+        >
+          This field is required
+        </div>
+        <div
+          *ngIf="isFormControlHasError('email', 'email')"
+          class="form-text text-danger"
+        >
+          Email is invalid
+        </div>
+      </ng-container>
     </div>
     <div class="flex-grow-1 d-flex align-items-end justify-content-end mb-3">
-      <button class="btn btn-sub me-2" routerLink="/routes">
-        Back
-      </button>
-      <button type="submit" class="btn btn-main" (click)="submit()">
+      <button class="btn btn-sub me-2" routerLink="/routes">Back</button>
+      <button type="submit" class="btn btn-main" [disabled]="!form.valid">
         Book
       </button>
     </div>

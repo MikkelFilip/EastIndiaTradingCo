@@ -9,8 +9,8 @@ import { Component, OnInit } from '@angular/core';
   }
 })
 export class ConfirmationPageComponent implements OnInit {
-  public routePathCities = [ "Cairo", "Omdurman", "Darfur", "Congo", "Congo2", "Congo3", "Congo 4"];
-  public routePathCompanies = [ "TL", "TL", "OA", "OA", "OA", "OA"];
+  public routePathCities = [ "Cairo", "Omdurman", "Darfur", "Congo", "Congo2", "Congo3", "Congo 4", "Congo 5", "Congo 6"];
+  public routePathCompanies = [ "TL", "TL", "OA", "OA", "OA", "OA", "OA", "OA"];
   public isExpandedRoutePath = false;
   constructor() { }
 

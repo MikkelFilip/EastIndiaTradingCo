@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,13 +11,34 @@ import { Router } from '@angular/router';
   }
 })
 export class InformationPageComponent implements OnInit {
+  public form!: FormGroup;
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+  ) {}
 
   ngOnInit(): void {
+    this.form = this.fb.group({
+      name: [null, Validators.required],
+      email: [null, {
+        validators: [Validators.required, Validators.email],
+        updateOn: 'blur'
+      }],
+    });
   }
 
   public submit() {
     this.router.navigateByUrl("/confirmation");
+  }
+
+  public isFormControlInvalid(formControlName: string): boolean {
+    return this.form.controls[formControlName].invalid
+      && (this.form.controls[formControlName].dirty
+        || this.form.controls[formControlName].touched);
+  }
+
+  public isFormControlHasError(formControlName: string, errorName: string): boolean {
+    return this.form.controls[formControlName].errors?.[errorName];
   }
 }

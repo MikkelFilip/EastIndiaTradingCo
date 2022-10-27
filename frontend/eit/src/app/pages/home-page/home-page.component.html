@@ -1,9 +1,9 @@
 <div class="page-wrapper d-flex flex-column flex-grow-1">
   <div class="page-title">Search Route</div>
-  <form class="d-flex flex-column flex-grow-1">
-    <div class="form-group">
-      <label>From</label>
-      <div class="input-group mb-3">
+  <form class="d-flex flex-column flex-grow-1" [formGroup]="form" (ngSubmit)="search()">
+    <div class="form-group mb-3">
+      <label>From <span class="form-text">(*)</span></label>
+      <div class="input-group">
         <div class="input-group-prepend">
           <div class="input-group-text">
             <i class="fa fa-map-marker"></i>
@@ -12,13 +12,22 @@
         <ng-select
           [items]="locationOptions"
           placeholder="From location"
-          autofocus
+          formControlName="from"
+          [class.invalid]="isFormControlInvalid('from')"
         ></ng-select>
       </div>
+      <ng-container *ngIf="isFormControlInvalid('from')">
+        <div
+          *ngIf="isFormControlHasError('from', 'required')"
+          class="form-text text-danger"
+        >
+          This field is required
+        </div>
+      </ng-container>
     </div>
-    <div class="form-group">
-      <label>To</label>
-      <div class="input-group mb-3">
+    <div class="form-group mb-3">
+      <label>To <span class="form-text">(*)</span></label>
+      <div class="input-group">
         <div class="input-group-prepend">
           <div class="input-group-text">
             <i class="fa fa-map-marker"></i>
@@ -27,24 +36,55 @@
         <ng-select
           [items]="locationOptions"
           placeholder="To location"
-          autofocus
+          formControlName="to"
+          [class.invalid]="isFormControlInvalid('to')"
         ></ng-select>
       </div>
+      <ng-container *ngIf="isFormControlInvalid('to')">
+        <div
+          *ngIf="isFormControlHasError('to', 'required')"
+          class="form-text text-danger"
+        >
+          This field is required
+        </div>
+      </ng-container>
     </div>
-    <div class="form-group">
-      <label>Date</label>
-      <div class="input-group mb-3">
+    <div class="form-group mb-3">
+      <label>Date <span class="form-text">(*)</span></label>
+      <div class="input-group" (click)="d.toggle()">
         <div class="input-group-prepend">
           <div class="input-group-text">
             <i class="fa fa-calendar"></i>
           </div>
         </div>
-        <input type="date" class="form-control" placeholder="Date" />
+        <input
+          class="form-control"
+          placeholder="Date"
+          formControlName="date"
+          ngbDatepicker
+          #d="ngbDatepicker"
+          placeholder="yyyy-MM-dd"
+          [class.invalid]="isFormControlInvalid('date')"
+        />
       </div>
+      <ng-container *ngIf="isFormControlInvalid('date')">
+        <div
+          *ngIf="isFormControlHasError('date', 'required')"
+          class="form-text text-danger"
+        >
+          This field is required
+        </div>
+        <div
+          *ngIf="isFormControlHasError('date', 'ngbDate')"
+          class="form-text text-danger"
+        >
+          Date is invalid
+        </div>
+      </ng-container>
     </div>
-    <div class="form-group">
-      <label>Cargo type</label>
-      <div class="input-group mb-3">
+    <div class="form-group mb-3">
+      <label>Cargo type <span class="form-text">(*)</span></label>
+      <div class="input-group">
         <div class="input-group-prepend">
           <div class="input-group-text">
             <i class="fa fa-suitcase"></i>
@@ -53,13 +93,23 @@
         <ng-select
           [items]="cargoTypeOptions"
           placeholder="Cargo type"
-          autofocus
+          [clearable]="false"
+          formControlName="cargoType"
+          [class.invalid]="isFormControlInvalid('cargoType')"
         ></ng-select>
       </div>
+      <ng-container *ngIf="isFormControlInvalid('cargoType')">
+        <div
+          *ngIf="isFormControlHasError('cargoType', 'required')"
+          class="form-text text-danger"
+        >
+          This field is required
+        </div>
+      </ng-container>
     </div>
-    <div class="form-group">
-      <label>Cargo size</label>
-      <div class="input-group mb-3">
+    <div class="form-group mb-3">
+      <label>Cargo size <span class="form-text">(*)</span></label>
+      <div class="input-group">
         <div class="input-group-prepend">
           <div class="input-group-text">
             <i class="fa fa-arrows-alt"></i>
@@ -67,38 +117,77 @@
         </div>
         <ng-select
           [items]="cargoSizeOptions"
-          placeholder="Cargo type"
-          autofocus
+          placeholder="Cargo size"
+          [clearable]="false"
+          formControlName="cargoSize"
+          [class.invalid]="isFormControlInvalid('cargoSize')"
         ></ng-select>
       </div>
+      <ng-container *ngIf="isFormControlInvalid('cargoSize')">
+        <div
+          *ngIf="isFormControlHasError('cargoSize', 'required')"
+          class="form-text text-danger"
+        >
+          This field is required
+        </div>
+      </ng-container>
     </div>
     <div class="row">
       <div class="col-6">
-        <div class="form-group">
-          <label>Weight</label>
-          <div class="input-group mb-3">
+        <div class="form-group mb-3">
+          <label>Weight <span class="form-text">(*)</span></label>
+          <div class="input-group">
             <div class="input-group-prepend">
               <div class="input-group-text">
                 <i class="fa fa-balance-scale"></i>
               </div>
             </div>
-            <input class="form-control" placeholder="Weight" />
+            <input
+              class="form-control"
+              type="number"
+              min="0"
+              max="100"
+              placeholder="Weight"
+              formControlName="weight"
+              [class.invalid]="isFormControlInvalid('weight')"
+            />
+            <div class="input-group-append">
+              <span class="input-group-text">kg</span>
+            </div>
           </div>
+          <ng-container *ngIf="isFormControlInvalid('weight')">
+            <div
+              *ngIf="isFormControlHasError('weight', 'required')"
+              class="form-text text-danger"
+            >
+              This field is required
+            </div>
+          </ng-container>
         </div>
       </div>
       <div class="col-6">
         <div class="form-group">
-          <label>Sort By</label>
+          <label>Sort By <span class="form-text">(*)</span></label>
           <ng-select
             [items]="sortByOptions"
             placeholder="Sort By"
-            autofocus
+            [clearable]="false"
+            formControlName="sortBy"
+            [class.invalid]="isFormControlInvalid('sortBy')"
           ></ng-select>
         </div>
+        <ng-container *ngIf="isFormControlInvalid('sortBy')">
+          <div
+            *ngIf="isFormControlHasError('sortBy', 'required')"
+            class="form-text text-danger"
+          >
+            This field is required
+          </div>
+        </ng-container>
       </div>
     </div>
     <div class="flex-grow-1 d-flex align-items-end justify-content-end mb-3">
-      <button type="submit" class="btn btn-main" (click)="search()">
+      <button type="submit" class="btn btn-main" [disabled]="!form.valid">
         Search
       </button>
     </div>
