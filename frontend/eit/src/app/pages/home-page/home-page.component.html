@@ -11,6 +11,7 @@
         </div>
         <ng-select
           [items]="locationOptions"
+          bindLabel="name"
           placeholder="From location"
           formControlName="from"
           [class.invalid]="isFormControlInvalid('from')"
@@ -35,6 +36,7 @@
         </div>
         <ng-select
           [items]="locationOptions"
+          bindLabel="name"
           placeholder="To location"
           formControlName="to"
           [class.invalid]="isFormControlInvalid('to')"
@@ -92,6 +94,7 @@
         </div>
         <ng-select
           [items]="cargoTypeOptions"
+          bindLabel="name"
           placeholder="Cargo type"
           [clearable]="false"
           formControlName="cargoType"
@@ -117,6 +120,7 @@
         </div>
         <ng-select
           [items]="cargoSizeOptions"
+          bindLabel="label"
           placeholder="Cargo size"
           [clearable]="false"
           formControlName="cargoSize"

@@ -51,7 +51,7 @@
       <button class="btn btn-sub me-2" routerLink="/">
         Back
       </button>
-      <button class="btn btn-main" (click)="submit()">
+      <button class="btn btn-main" (click)="submit()" [disabled]="!selectedRoute">
         Next
       </button>
     </div>

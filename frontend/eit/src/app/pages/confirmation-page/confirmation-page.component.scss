@@ -12,10 +12,13 @@
       }
     }
   }
+  .total-price {
+    font-size: 20px;
+  }
 }
 
 @media screen and (min-width: 992px) {
   .page-wrapper .card.route-path {
-    max-height: 320px;
+    max-height: 270px;
   }
 }
