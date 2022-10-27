@@ -12,6 +12,7 @@ namespace EITBackend.External
 
         private readonly ILogger<ExternalController> logger;
         private readonly IConnectedCitiesService connectedCitiesService;
+        private string[] supportedContentType = { "live animals", "weapons", "refrigerated goods" };
 
         public ExternalController(IConnectedCitiesService connectedCitiesService, ILogger<ExternalController> logger)
         {
@@ -19,10 +20,15 @@ namespace EITBackend.External
             this.logger = logger;
         }
 
-        [HttpGet(Name = "{cityName}")]
-        public GetConnectedCities GetConnectedCitiesEndpoint(string cityName, [FromQuery(Name = "weight")] int weight, [FromQuery(Name = "contentType")] string contentType, [FromQuery(Name = "dateTime")] DateTime dateTime, [FromQuery(Name = "packageType")] string packageType)
+        [HttpGet("{cityName}")]
+        public ActionResult<GetConnectedCities> GetConnectedCitiesEndpoint(string cityName, [FromQuery(Name = "weight")] int weight, [FromQuery(Name = "contentType")] string contentType, [FromQuery(Name = "dateTime")] DateTime dateTime, [FromQuery(Name = "packageType")] string packageType)
         {
-            return connectedCitiesService.GetConnectedCities(cityName, weight, contentType, dateTime, packageType);
+            if (supportedContentType.Contains(contentType.ToLower()))
+            {
+                return connectedCitiesService.GetConnectedCities(cityName, weight, contentType, dateTime, packageType);
+            }
+
+            return BadRequest();
         }
     }
 }
