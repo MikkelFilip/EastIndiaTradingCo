@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Common\Services\" />
     <Folder Include="External\" />
   </ItemGroup>
 
