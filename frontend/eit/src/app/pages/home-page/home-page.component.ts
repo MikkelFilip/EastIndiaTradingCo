@@ -1,7 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { formatDate } from '@angular/common';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { DataService } from 'src/app/services/dataService';
 import { LoadingScreenService } from 'src/app/services/loading.service';
 import { ToastService } from 'src/app/services/toast.service';
@@ -44,21 +46,39 @@ export class HomePageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getLocations();
+    this.initLocations();
+    this.initForm();
+  }
+
+  public initLocations() {
+    this.loadingService.show();
+    this.http.get("https://wa-eit-dk1.azurewebsites.net/getCities").subscribe({
+      next: (result: any) => {
+        this.locationOptions = result.map((location: any) => location.name);
+      },
+      error: (err: HttpErrorResponse) => {
+        this.toastService.show("Error: " + err.message, { classname: 'bg-danger text-light', delay: 5000 });
+      }
+    })
+      .add(() => { this.loadingService.hidden() });
+  }
+
+  public initForm() {
+    var today = new Date();
+    var ngbDate: NgbDateStruct = {
+      day: today.getDate(),
+      month: today.getMonth() + 1,
+      year: today.getFullYear()
+    }
+
     this.form = this.fb.group({
       from: [null, Validators.required],
       to: [null, Validators.required],
-      date: [null, Validators.required],
+      date: [ngbDate, [Validators.required]],
       cargoType: [this.cargoTypeOptions[0], Validators.required],
       cargoSize: [this.cargoSizeOptions[0], Validators.required],
       weight: [0, Validators.required],
       sortBy: [this.sortByOptions[0], Validators.required],
-    });
-  }
-
-  public getLocations() {
-    this.http.get("https://wa-eit-dk1.azurewebsites.net/getCities").subscribe(result => {
-      console.log(result);
     });
   }
 
