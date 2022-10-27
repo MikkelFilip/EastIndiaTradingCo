@@ -24,6 +24,8 @@ internal class Program
         builder.Services.AddSwaggerGen();
         builder.Services.AddScoped<IConnectedCitiesService, ConnectedCitiesService>();
         builder.Services.AddScoped<IConnectedCitiesSegmentAdapter, ConnectedCitiesSegmentAdapter>();
+        builder.Services.AddScoped<ICityAdapter, CityAdapter>();
+
         // DB Connection
         builder.Services.Configure<ConnectionStringOptions>(builder.Configuration.GetSection(ConnectionStringOptions.ConnectionStrings));
         var connectionStringOptions = new ConnectionStringOptions();
