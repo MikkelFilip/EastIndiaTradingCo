@@ -9,21 +9,21 @@ namespace EITBackend.Common.Models
         /// Unique id of a BookingHistory
         /// </summary>
         [Required]
-        public Guid BookingId { get; set; }
+        public int BookingId { get; set; }
 
 
         /// <summary>
         /// Unique id of the From City
         /// </summary>
         [Required]
-        public Guid FromCityId { get; set; }
+        public int? FromCityId { get; set; }
 
 
         /// <summary>
         /// Unique id of the To City
         /// </summary>
         [Required]
-        public Guid ToCityId { get; set; }
+        public int? ToCityId { get; set; }
 
         /// <summary>
         /// Sending date
@@ -43,7 +43,7 @@ namespace EITBackend.Common.Models
         /// <summary>
         /// Unique Id of the content type belong to the ooking
         /// </summary>
-        public Guid ContentTypeId {get; set;}
+        public int? ContentTypeId {get; set;}
 
         /// <summary>
         /// Name of the customer
