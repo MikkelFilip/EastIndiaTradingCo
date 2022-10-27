@@ -7,8 +7,6 @@ namespace EITBackend.Common.Services
 {
     public class BookingHistoryService : IBookingHistoryService
     {
-
-
         /// <summary>
         /// Initializes a new instance of the <see cref="TransportOperatorService"/> class.
         /// </summary>
@@ -25,10 +23,14 @@ namespace EITBackend.Common.Services
 
         private ILogger<BookingHistoryService> Logger { get; }
 
+        public List<MostUsedRoute> GetMostUsedRoutes()
+        {
+            return BookingHistoryAdapter.GetMostUsedRoutes();
+        }
+
         public BookingHistory PostBookingHistory(BookingHistory bookingHistory)
         {
             return BookingHistoryAdapter.PostBookingHistory(bookingHistory);
-
         }
     }
 }
