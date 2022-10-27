@@ -3,36 +3,36 @@
   <form class="d-flex flex-column flex-grow-1">
     <div class="card mb-2">
       <div class="card-body">
-        <div class="mb-1">Confirmation number: <b>#1111</b></div>
+        <div class="mb-1">Confirmation number: <b>#{{dataService.bookedShipment.bookingId}}</b></div>
         <div class="row">
           <div class="col-12 col-md-6">
             <div class="d-flex align-items-center mb-1">
               <i class="fa fa-map-marker me-2"></i>
-              <div>Cairo -> Congo</div>
+              <div>{{dataService.searchingParameters.from.name}} -> {{dataService.searchingParameters.to.name}}</div>
             </div>
           </div>
           <div class="col-12 col-md-6">
             <div class="d-flex align-items-center mb-1">
               <i class="fa fa-calendar me-2"></i>
-              <div>2022/10/25</div>
+              <div>{{ngbDateToString(dataService.searchingParameters.date)}}</div>
             </div>
           </div>
           <div class="col-12 col-md-6">
             <div class="d-flex align-items-center mb-1">
               <i class="fa fa-clock-o me-2"></i>
-              <div>12 hour(s)</div>
+              <div>{{dataService.bookedShipment.duration}} hour(s)</div>
             </div>
           </div>
           <div class="col-12 col-md-6">
             <div class="d-flex align-items-center mb-1">
               <i class="fa fa-suitcase me-2"></i>
-              <div>Cargo type: Luggage</div>
+              <div>Cargo type: {{dataService.searchingParameters.cargoType.name}}</div>
             </div>
           </div>
           <div class="col-12 col-md-6">
             <div class="d-flex align-items-center mb-1">
               <i class="fa fa-arrows-alt me-2"></i>
-              <div>Size: Box (40x40x40)</div>
+              <div>Size: {{dataService.searchingParameters.cargoSize.label}}</div>
             </div>
           </div>
         </div>
@@ -45,13 +45,13 @@
           <div class="col-12 col-md-6">
             <div class="d-flex align-items-center mb-1">
               <i class="fa fa-id-card me-2"></i>
-              <div>Louis</div>
+              <div>{{dataService.bookedShipment.customerName}}</div>
             </div>
           </div>
           <div class="col-12 col-md-6">
             <div class="d-flex align-items-center mb-1">
               <i class="fa fa-envelope me-2"></i>
-              <div>louis@gmail.com</div>
+              <div>{{dataService.bookedShipment.customerEmail}}</div>
             </div>
           </div>
         </div>
@@ -65,6 +65,10 @@
         </div>
         <app-route-path [cities]="routePathCities" [companies]="routePathCompanies"></app-route-path>
       </div>
+    </div>
+    <div class="total-price d-flex justify-content-end">
+      <div class="me-3">Total price: </div>
+      <div class="fw-bold">{{dataService.bookedShipment.price}} $</div>
     </div>
     <div class="flex-grow-1 d-flex align-items-end justify-content-end mb-3">
       <button class="btn btn-main" routerLink="/">Finish</button>

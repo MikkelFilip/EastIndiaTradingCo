@@ -28,13 +28,37 @@ export class HomePageComponent implements OnInit {
   ]
 
   public cargoTypeOptions = [
-    "Luggage", "Other"
+    {
+      id: 1,
+      name: "Weapons"
+    },
+    {
+      id: 2,
+      name: "Live animals"
+    },
+    {
+      id: 3,
+      name: "Refrigerated goods"
+    },
+    {
+      id: 4,
+      name: "Other"
+    }
   ]
 
   public cargoSizeOptions = [
-    "Small package (25x25x25)",
-    "Box (40x40x40)",
-    "Crate (200x200x200)",
+    {
+      value: "Small package",
+      label: "Small package (25x25x25)",
+    },
+    {
+      value: "Box",
+      label: "Box (40x40x40)",
+    },
+    {
+      value: "Crate",
+      label: "Crate (200x200x200)",
+    }
   ]
   constructor(
     private router: Router,
@@ -54,7 +78,7 @@ export class HomePageComponent implements OnInit {
     this.loadingService.show();
     this.http.get("https://wa-eit-dk1.azurewebsites.net/getCities").subscribe({
       next: (result: any) => {
-        this.locationOptions = result.map((location: any) => location.name);
+        this.locationOptions = result;
       },
       error: (err: HttpErrorResponse) => {
         this.toastService.show("Error: " + err.message, { classname: 'bg-danger text-light', delay: 5000 });
@@ -83,6 +107,11 @@ export class HomePageComponent implements OnInit {
   }
 
   public search() {
+    this.dataService.searchingParameters = {
+      ...this.form.value
+    }
+
+    //TODO: Mock, remove after has Api
     this.dataService.possiableRoutes = [
       {
         id: "1",
