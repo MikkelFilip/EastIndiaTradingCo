@@ -1,4 +1,5 @@
 ﻿using EITBackend.Common.Models;
+using QuikGraph;
 
 namespace EITBackend.Common.DTOs
 {
@@ -12,7 +13,8 @@ namespace EITBackend.Common.DTOs
 
         public double Price { get; set; } = 0;
 
-        public List<City> Cities { get; set; } = new();
+        //public List<City> Cities { get; set; } = new();
+        public IEnumerable<Edge<int>> Path { get; set; } = Enumerable.Empty<Edge<int>>();
 
         public List<string> Companies { get; set; } = new();
     }
