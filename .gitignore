@@ -5,3 +5,8 @@
 /EITBackend/.vs/EITBackend/DesignTimeBuild/.dtbcache.v2
 /EITBackend/.vs/ProjectEvaluation/eitbackend.metadata.v2
 /EITBackend/.vs/ProjectEvaluation/eitbackend.projects.v2
+*.lock
+*.v1
+*.vsidx
+*.testlog
+*.manifest
