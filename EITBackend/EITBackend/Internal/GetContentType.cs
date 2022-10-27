@@ -1,24 +1,24 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace EITBackend.Controllers
+namespace EITBackend.Internal
 {
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class GetContentTypeController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+    };
 
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<GetContentTypeController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public GetContentTypeController(ILogger<GetContentTypeController> logger)
         {
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
+        [HttpGet(Name = "GetContentType")]
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast

@@ -3,7 +3,7 @@
     public class ConnectedCities
     {
 
-        public string? City { get; set; }
+        public string? CityName { get; set; }
 
         public Double? Price { get; set; }
 
