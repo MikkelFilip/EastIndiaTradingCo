@@ -4,6 +4,6 @@ namespace EITBackend.Common.Services.IServices
 {
     public interface IPossibleRouteService
     {
-        public IEnumerable<PossibleRoute> GetPossibleRoutes();
+        public List<PossibleRoute> GetPossibleRoutes(int fromCityId, int toCityId);
     }
 }

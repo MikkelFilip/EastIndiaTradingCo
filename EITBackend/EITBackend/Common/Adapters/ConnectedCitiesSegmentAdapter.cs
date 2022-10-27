@@ -10,6 +10,12 @@ namespace EITBackend.Common.Adapters
         {
             this.context = context;
         }
+
+        public List<ConnectedCitiesSegment> GetAll()
+        {
+            return context.connectedCitiesSegments.ToList();
+        }
+
         //TODO: Change string name to int cityId
         public IEnumerable<ConnectedCitiesSegment> GetConnectedCitiesSegment(String cityName)
         {
