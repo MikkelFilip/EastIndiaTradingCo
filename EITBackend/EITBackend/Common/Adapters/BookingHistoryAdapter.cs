@@ -14,20 +14,9 @@ namespace EITBackend.Common.Adapters
             this.context = context;
         }
 
-        public BookingHistory PostBookingHistory(BookingHistory booking)
+        public BookingHistory PostBookingHistory(BookingHistory bookingHistory)
         {
-            BookingHistory bookingHistory = new BookingHistory() {
-                BookingId = booking.BookingId,
-                FromCityId = booking.FromCityId,
-                ToCityId = booking.ToCityId,
-                Date = booking.Date,
-                Duration = booking.Duration,
-                Price = booking.Price,
-                ContentTypeId = booking.ContentTypeId,
-                CustomerName = booking.CustomerName,
-                CustomerEmail = booking.CustomerEmail,
-            };
-            context.bookingHistories.Add(bookingHistory);
+            context.bookingHistory.Add(bookingHistory);
             context.SaveChanges();
             return bookingHistory;
         }

@@ -27,7 +27,6 @@ namespace EITBackend.Common.Services
 
         public GetConnectedCities GetConnectedCities(string cityName, int weight, string contentType, DateTime dateTime, string packageType)
         {
-            int Id = 1;
             IEnumerable<ConnectedCitiesSegment> connectedCitySegments = ConnectedCitiesSegmentAdapter.GetConnectedCitiesSegment(cityName);
             List<ConnectedCities> connectedCities = new List<ConnectedCities>();
 
