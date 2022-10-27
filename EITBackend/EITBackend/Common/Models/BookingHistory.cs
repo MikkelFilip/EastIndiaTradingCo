@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using EITBackend.Common.DTOs;
 
 namespace EITBackend.Common.Models
 {
@@ -9,6 +10,7 @@ namespace EITBackend.Common.Models
         /// Unique id of a BookingHistory
         /// </summary>
         [Required]
+        [Key]
         public int BookingId { get; set; }
 
 
@@ -49,6 +51,11 @@ namespace EITBackend.Common.Models
         /// Name of the customer
         /// </summary>
         public string? CustomerName { get; set; }
+
+        /// <summary>
+        /// Package Type
+        /// </summary>
+        public string? PackageType { get; set; }
 
         /// <summary>
         /// Email of the customer

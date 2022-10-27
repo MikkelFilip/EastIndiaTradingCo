@@ -1,8 +1,13 @@
-﻿using EITBackend.Common.Services.IServices;
+﻿using EITBackend.Common.DTOs;
+using EITBackend.Common.Services.IServices;
 
 namespace EITBackend.Common.Services
 {
-    public interface PossibleRouteService : IPossibleRouteService
+    public class PossibleRouteService : IPossibleRouteService
     {
+        public IEnumerable<PossibleRoute> GetPossibleRoutes()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
