@@ -10,3 +10,12 @@
 *.vsidx
 *.testlog
 *.manifest
+*.dll
+*.exe
+*.pdb
+*.BuildWithSkipAnalyzers
+*.CopyComplete
+*.cache
+*.txt
+/EITBackend/EITBackend/obj/Debug/net6.0/EITBackend.MvcApplicationPartsAssemblyInfo.cs
+*.sentinel
