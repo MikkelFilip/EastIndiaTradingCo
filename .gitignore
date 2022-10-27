@@ -10,3 +10,8 @@
 *.vsidx
 *.testlog
 *.manifest
+/EITBackend/EITBackend/obj/Release/net6.0
+/EITBackend/EITBackend/obj
+/EITBackend/EITBackend/bin/Debug/net6.0
+/EITBackend/.vs
+/.vs
