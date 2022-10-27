@@ -34,10 +34,10 @@ namespace EITBackend.External
             return BadRequest();
         }
 
-        [HttpGet("GetContentTypes")]
+/*        [HttpGet("GetContentTypes")]
         public IEnumerable<ContentType> GetContentTypeEndpoint()
         {
             return context.contentTypes.ToList();
-        }
+        }*/
     }
 }
