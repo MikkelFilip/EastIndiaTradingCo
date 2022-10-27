@@ -39,6 +39,9 @@ internal class Program
         dbContextOptions => dbContextOptions
             .UseSqlServer("Data Source=dbs-eit-dk1.database.windows.net; Initial Catalog=db-eit-dk1; User Id=admin-eit-dk1​; Password=Eastindia4thewin​"));
 
+        //CORS Policy
+        builder.Services.AddCors();
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -47,6 +50,11 @@ internal class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+
+        app.UseCors(options => options
+            .AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod());
 
         app.UseHttpsRedirection();
 
