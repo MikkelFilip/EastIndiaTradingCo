@@ -25,6 +25,7 @@ internal class Program
         builder.Services.AddScoped<IConnectedCitiesService, ConnectedCitiesService>();
         builder.Services.AddScoped<IConnectedCitiesSegmentAdapter, ConnectedCitiesSegmentAdapter>();
         builder.Services.AddScoped<ICityAdapter, CityAdapter>();
+        builder.Services.AddScoped<IPossibleRouteService, PossibleRouteService>();
 
         // DB Connection
         builder.Services.Configure<ConnectionStringOptions>(builder.Configuration.GetSection(ConnectionStringOptions.ConnectionStrings));

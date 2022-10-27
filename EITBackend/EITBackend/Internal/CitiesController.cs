@@ -4,21 +4,21 @@ using Microsoft.AspNetCore.Mvc;
 namespace EITBackend.Internal
 {
     [ApiController]
-    [Route("[controller]")]
-    public class GetCitiesController : ControllerBase
+    [Route("Cities")]
+    public class CitiesController : ControllerBase
     {
 
 
-        private readonly ILogger<GetCitiesController> _logger;
+        private readonly ILogger<CitiesController> _logger;
         private DataContext context;
-        public GetCitiesController(ILogger<GetCitiesController> logger, DataContext context)
+        public CitiesController(ILogger<CitiesController> logger, DataContext context)
         {
             _logger = logger;
             this.context = context;
         }
 
-        [HttpGet(Name = "GetCities")]
-        public IEnumerable<City> Get()
+        [HttpGet("/GetCities")]
+        public IEnumerable<City> GetCities()
         {
             return context.cities.ToList();
 
