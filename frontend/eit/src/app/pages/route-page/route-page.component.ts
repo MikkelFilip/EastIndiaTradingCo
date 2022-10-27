@@ -4,7 +4,10 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-route-page',
   templateUrl: './route-page.component.html',
-  styleUrls: ['./route-page.component.scss']
+  styleUrls: ['./route-page.component.scss'],
+  host: {
+    class: 'd-flex flex-column flex-grow-1'
+  }
 })
 export class RoutePageComponent implements OnInit {
 
@@ -19,8 +22,11 @@ export class RoutePageComponent implements OnInit {
       id: "1",
       duration: 12,
       price: 100,
-      segments: [
-        "A", "B", "C", "D"
+      cities: [
+        "Cairo", "Omdurman", "Darfur", "Congo"
+      ],
+      companies: [
+        "TL", "TL", "OA"
       ],
       isCollapsed: true,
     },
@@ -28,8 +34,11 @@ export class RoutePageComponent implements OnInit {
       id: "2",
       duration: 15,
       price: 90,
-      segments: [
-        "A", "B", "C", "D"
+      cities: [
+        "Cairo", "Omdurman", "Darfur", "Congo"
+      ],
+      companies: [
+        "TL", "TL", "OA"
       ],
       isCollapsed: true,
     },
@@ -37,8 +46,11 @@ export class RoutePageComponent implements OnInit {
       id: "3",
       duration: 8,
       price: 80,
-      segments: [
-        "A", "B", "C", "D"
+      cities: [
+        "Cairo", "Omdurman", "Darfur", "Congo"
+      ],
+      companies: [
+        "TL", "TL", "OA"
       ],
       isCollapsed: true,
     },
@@ -46,15 +58,15 @@ export class RoutePageComponent implements OnInit {
       id: "4",
       duration: 5,
       price: 200,
-      segments: [
-        "A", "B", "C", "D"
+      cities: [
+        "Cairo", "Omdurman", "Darfur", "Congo"
+      ],
+      companies: [
+        "TL", "TL", "OA"
       ],
       isCollapsed: true,
     }
   ]
-
-  public routePathCities = [ "Cairo", "Omdurman", "Darfur", "Congo"];
-  public routePathCompanies = [ "TL", "TL", "OA"];
 
   constructor(private router: Router) { }
 

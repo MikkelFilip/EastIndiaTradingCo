@@ -18,14 +18,27 @@
 }
 
 .body {
-  // background-color: #f5f5f5;
-  background-color: blue;
+  background-color: #f5f5f5;
+  // background-color: blue;
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: calc(100vh - 60px);
   .content {
     background-color: #fff;
-    min-height: calc(100vh - 60px);
     width: 100%;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .body {
+    .content {
+      border-radius: 10px;
+      border: 1px solid #ced4da;
+      max-width: 800px;
+      min-height: 700px;
+      display: flex;
+      flex-direction: column;
+    }
   }
 }

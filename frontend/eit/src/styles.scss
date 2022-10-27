@@ -47,11 +47,25 @@ ng-select {
 .btn-main {
   background-color: #001f7e;
   color: #fff;
+  &:hover {
+    background-color: rgb(0, 31, 126, 0.8);
+    color: #fff;
+  }
 }
 
 .btn-sub {
   background-color: #fff;
   border-color: #001f7e;
   color: #001f7e;
+  &:hover {
+    background-color: rgb(241, 241, 241);
+    border-color: #001f7e;
+  color: #001f7e;
+  }
 }
 
+@media screen and (min-width: 992px) {
+  .page-wrapper {
+    height: unset;
+  }
+}

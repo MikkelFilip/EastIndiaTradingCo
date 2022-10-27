@@ -1,4 +1,4 @@
-<div class="page-wrapper d-flex flex-column">
+<div class="page-wrapper d-flex flex-column flex-grow-1">
   <div class="page-title">Routes</div>
   <div class="d-flex justify-content-between align-items-center mb-3">
     <div>Search: Cairo -> Congo</div>
@@ -38,7 +38,7 @@
             <div class="card">
               <div class="card-body">
                 <div class="mb-2">Route path:</div>
-                <app-route-path [cities]="routePathCities" [companies]="routePathCompanies"></app-route-path>
+                <app-route-path [cities]="route.cities" [companies]="route.companies"></app-route-path>
               </div>
             </div>
           </div>

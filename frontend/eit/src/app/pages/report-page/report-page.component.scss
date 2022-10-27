@@ -1,0 +1,18 @@
+.report-item {
+  .title {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .route-item {
+    display: flex;
+    justify-content: space-between;
+    background: #e6ecff;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    margin-bottom: 15px;
+  }
+}

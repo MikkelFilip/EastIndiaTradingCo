@@ -4,7 +4,10 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss']
+  styleUrls: ['./home-page.component.scss'],
+  host: {
+    class: 'd-flex flex-column flex-grow-1'
+  }
 })
 export class HomePageComponent implements OnInit {
 
@@ -25,7 +28,7 @@ export class HomePageComponent implements OnInit {
     "Box (40x40x40)",
     "Crate (200x200x200)",
   ]
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
   }

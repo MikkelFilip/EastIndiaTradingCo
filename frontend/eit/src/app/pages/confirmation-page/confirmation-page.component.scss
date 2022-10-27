@@ -1,0 +1,15 @@
+.page-wrapper {
+  i {
+    min-width: 20px;
+  }
+  .card {
+    background-color: #e6ecff;
+    &.route-path {
+      max-height: 150px;
+      overflow: auto;
+      &.expanded {
+        max-height: none;
+      }
+    }
+  }
+}
