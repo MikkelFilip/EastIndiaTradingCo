@@ -53,6 +53,6 @@ namespace EITBackend.Common.Models
         /// <summary>
         /// Email of the customer
         /// </summary>
-        public string? CustomerEmail { get; set }
+        public string? CustomerEmail { get; set; }
     }
 }
