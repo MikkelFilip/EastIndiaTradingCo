@@ -27,9 +27,8 @@
             <div>Price: {{ route.price }}$</div>
           </div>
           <i
-            class="fa fa-caret-down cursor-pointer"  [ngClass]="route.isCollapsed ? 'fa-caret-down' : 'fa-caret-up'"
+            class="fa fa-caret-down cursor-pointer"  [ngClass]="!route.isCollapsed ? 'fa-caret-up' : 'fa-caret-down'"
             (click)="collapse.toggle()"
-            [attr.aria-expanded]="!route.isCollapsed"
           >
           </i>
         </div>
