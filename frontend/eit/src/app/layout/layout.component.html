@@ -5,6 +5,17 @@
     </div>
     <div class="company-name">East India Trading</div>
   </div>
+
+  <div class="wrapper-menu-icon" ngbDropdown>
+    <div class="menu-icon" id="menuDropdown" ngbDropdownToggle>
+      <i class="fa fa-bars"></i>
+      <div ngbDropdownMenu aria-labelledby="menuDropdown">
+        <button ngbDropdownItem routerLink="/">Home</button>
+        <button ngbDropdownItem routerLink="/report">Report</button>
+      </div>
+    </div>
+  </div>
+
   <div class="body">
     <div class="content">
       <ng-content></ng-content>
