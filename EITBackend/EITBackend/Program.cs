@@ -28,6 +28,7 @@ internal class Program
         builder.Services.AddScoped<IBookingHistoryAdapter, BookingHistoryAdapter>();
         builder.Services.AddScoped<ICityAdapter, CityAdapter>();
         builder.Services.AddScoped<IPossibleRouteService, PossibleRouteService>();
+        builder.Services.AddScoped<IEmailService, EmailService>();
         // DB Connection
         builder.Services.Configure<ConnectionStringOptions>(builder.Configuration.GetSection(ConnectionStringOptions.ConnectionStrings));
         var connectionStringOptions = new ConnectionStringOptions();
