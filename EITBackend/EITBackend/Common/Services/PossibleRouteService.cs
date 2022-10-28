@@ -20,15 +20,19 @@ namespace EITBackend.Common.Services
             this._cityAdapter = cityAdapter;
         }
 
-        public List<PossibleRoute> GetPossibleRoutes(int fromCityId, int toCityId)
+        public List<PossibleRoute> GetPossibleRoutes(QueryPossibleRoute query)
         {
+            int fromCityId = query.From.CityId;
+            int toCityId = query.To.CityId;
+
             var connectedCitiesSegments = _adapter.GetAll();
             var edges = connectedCitiesSegments.Select(connecting => new Edge<int>(connecting.FromCityId, connecting.ToCityId));
 
             var graph = edges.ToBidirectionalGraph<int, Edge<int>>();
-            var fw = new FloydWarshallAllShortestPathAlgorithm<int, Edge<int>>(graph, (edge) => findWeight(connectedCitiesSegments, edge));
 
             var algo = new HoffmanPavleyRankedShortestPathAlgorithm<int, Edge<int>>(graph, (edge) => findWeight(connectedCitiesSegments, edge));
+
+
             algo.Compute(fromCityId, toCityId);
 
             foreach (ICollection<Edge<int>> path in algo.ComputedShortestPaths)
@@ -49,8 +53,8 @@ namespace EITBackend.Common.Services
                 From = fromCity!,
                 To = toCity!,
                 Path = path,
-                Duration = 10,
-                Price = 10,
+                Duration = this.CalculateTotalDurationOfPath(path),
+                Price = this.CalculateTotalPriceOfPath(path, query.Date, query.ContentType.Name),
                 Companies = generateCompanies(path.Count())
             });
 
@@ -74,5 +78,60 @@ namespace EITBackend.Common.Services
             }
             return companies;
         }
+
+        private int CalculateTotalDurationOfPath(IEnumerable<Edge<int>> path)
+        {
+            int totalDuration = 0;
+            foreach (Edge<int> edge in path)
+            {
+                int segment = _adapter.GetSegmentFromBothCitiesIds(edge.Source, edge.Target);
+                totalDuration += segment * 12;
+            }
+            return totalDuration;
+        }
+
+        private Double CalculateTotalPriceOfPath(IEnumerable<Edge<int>> path, DateTime date, string contentType)
+        {
+            Double totalPrice = 0.0;
+            foreach (Edge<int> edge in path)
+            {
+                int segment = _adapter.GetSegmentFromBothCitiesIds(edge.Source, edge.Target);
+                totalPrice += this.CalculatePrice(segment, date, contentType);
+            }
+            return totalPrice;
+        }
+
+        private Double CalculatePrice(int segment, DateTime dateTime, string contentType)
+        {
+            contentType = contentType.ToLower();
+            int initialPrice = 5;
+            double price = 0.0;
+            if (5 < dateTime.Month && dateTime.Month < 10)
+            {
+                initialPrice = 8;
+            }
+
+            price = initialPrice * segment;
+
+            int extraChargesPercentage = 0;
+            switch (contentType)
+            {
+                case "weapons":
+                    extraChargesPercentage = 20;
+                    break;
+                case "live animals":
+                    extraChargesPercentage = 25;
+                    break;
+                case "refrigerated goods":
+                    extraChargesPercentage = 10;
+                    break;
+                default:
+                    break;
+            }
+
+            price += (extraChargesPercentage * price) / 100;
+            return price;
+        }
+
     }
 }
