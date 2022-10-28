@@ -172,7 +172,7 @@ export class HomePageComponent implements OnInit {
       packageType: this.form.value.cargoSize.value,
       weight: this.form.value.weight,
     }
-    this.http.post('https://localhost:7022/PossibleRoutes', body)
+    this.http.post('https://wa-eit-dk1.azurewebsites.net/PossibleRoutes', body)
       .subscribe({
         next: (result: any) => {
           result.forEach((route: any) => {
