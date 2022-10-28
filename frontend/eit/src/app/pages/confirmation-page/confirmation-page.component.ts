@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import { DataService } from 'src/app/services/dataService';
 
 @Component({
   selector: 'app-confirmation-page',
@@ -9,14 +11,17 @@ import { Component, OnInit } from '@angular/core';
   }
 })
 export class ConfirmationPageComponent implements OnInit {
-  public routePathCities = [ "Cairo", "Omdurman", "Darfur", "Congo", "Congo2", "Congo3", "Congo 4", "Congo 5", "Congo 6"];
-  public routePathCompanies = [ "TL", "TL", "OA", "OA", "OA", "OA", "OA", "OA"];
+  public routePathCities = this.dataService.selectedRoute.cities;
+  public routePathCompanies = this.dataService.selectedRoute.companies;
   public isExpandedRoutePath = false;
-  constructor() { }
+
+  constructor(public dataService: DataService) { }
 
   ngOnInit(): void {
+    console.log(this.dataService);
   }
 
- 
-
+  public ngbDateToString(date: NgbDate) {
+    return date.year + "-" + date.month + "-" + date.day;
+  }
 }

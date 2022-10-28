@@ -1,16 +1,17 @@
 ﻿using System.Net.Mail;
 using System.Net;
+using EITBackend.Common.Services.IServices;
 
 namespace EITBackend.Common.Services
 {
-    public class Class
+    public class EmailService: IEmailService
     {
-        public void sendEmil(string reciver, string subject, string body)
+        public void sendEmail(string reciver, string subject, string body)
         {
 
-        var fromAddress = new MailAddress("eastindiatrading4thewin@gmail.com");
+        var fromAddress = new MailAddress("eit4thewin@gmail.com");
         var toAddress = new MailAddress(reciver);
-        const string fromPassword = "opbzxyhutstrpylg";
+        const string fromPassword = "clclzgjoukjcpvpe";
 
         var smtp = new SmtpClient
         {

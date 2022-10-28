@@ -20,57 +20,6 @@ export class RoutePageComponent implements OnInit {
   ];
   public routes: any[] = [];
 
-  // public routes = [
-  //   {
-  //     id: "1",
-  //     duration: 12,
-  //     price: 100,
-  //     cities: [
-  //       "Cairo", "Omdurman", "Darfur", "Congo"
-  //     ],
-  //     companies: [
-  //       "TL", "TL", "OA"
-  //     ],
-  //     isCollapsed: true,
-  //   },
-  //   {
-  //     id: "2",
-  //     duration: 15,
-  //     price: 90,
-  //     cities: [
-  //       "Cairo", "Omdurman", "Darfur", "Congo"
-  //     ],
-  //     companies: [
-  //       "TL", "TL", "OA"
-  //     ],
-  //     isCollapsed: true,
-  //   },
-  //   {
-  //     id: "3",
-  //     duration: 8,
-  //     price: 80,
-  //     cities: [
-  //       "Cairo", "Omdurman", "Darfur", "Congo"
-  //     ],
-  //     companies: [
-  //       "TL", "TL", "OA"
-  //     ],
-  //     isCollapsed: true,
-  //   },
-  //   {
-  //     id: "4",
-  //     duration: 5,
-  //     price: 200,
-  //     cities: [
-  //       "Cairo", "Omdurman", "Darfur", "Congo"
-  //     ],
-  //     companies: [
-  //       "TL", "TL", "OA"
-  //     ],
-  //     isCollapsed: true,
-  //   }
-  // ]
-
   constructor(
     private router: Router,
     private dataService: DataService,
@@ -78,6 +27,7 @@ export class RoutePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.routes = this.dataService.possiableRoutes;
+    this.selectedSortBy = this.dataService.searchingParameters.sortBy;
     this.sortRoute();
   }
 
@@ -94,6 +44,7 @@ export class RoutePageComponent implements OnInit {
   }
 
   public submit() {
+    this.dataService.selectedRoute = this.selectedRoute;
     this.router.navigateByUrl("/information");
   }
 

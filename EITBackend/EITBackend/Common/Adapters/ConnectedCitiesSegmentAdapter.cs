@@ -10,6 +10,12 @@ namespace EITBackend.Common.Adapters
         {
             this.context = context;
         }
+
+        public List<ConnectedCitiesSegment> GetAll()
+        {
+            return context.connectedCitiesSegments.ToList();
+        }
+
         //TODO: Change string name to int cityId
         public IEnumerable<ConnectedCitiesSegment> GetConnectedCitiesSegment(String cityName)
         {
@@ -22,6 +28,13 @@ namespace EITBackend.Common.Adapters
         private List<ConnectedCitiesSegment> QueryConnectedCitiesSegment(City city)
         {
             return context.connectedCitiesSegments.Where(segment => segment.FromCityId == city.CityId).ToList();
+        }
+
+        public int GetSegmentFromBothCitiesIds(int sourceCityId, int targetCityId )
+        {
+            return context.connectedCitiesSegments
+                .Where(segment => segment.FromCityId == sourceCityId && segment.ToCityId == targetCityId)
+                .Select(segment => segment.Segments).FirstOrDefault();
         }
     }
 }

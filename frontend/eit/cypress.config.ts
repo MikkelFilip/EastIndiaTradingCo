@@ -16,6 +16,6 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       return require('./cypress/plugins/index.js')(on, config)
     },
-    baseUrl: 'http://127.0.0.1:4200',
+    baseUrl: 'https://wa-eit-dk11.azurewebsites.net/',
   },
 })

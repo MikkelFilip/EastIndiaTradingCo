@@ -18,5 +18,37 @@ context("The flow", () => {
       })
     });
 
+    it("Click search button", () => {
+      cy.clickSearch();
+    });
+
+    it("Select the first route", () => {
+      cy.selectFirstRoute();
+    });
+
+    it("Click next button", () => {
+      cy.clickNext();
+    });
+
+    it("Enter name", () => {
+      cy.fixture(FIXTURE).then((data) => {
+        cy.enterName(data.name);
+      })
+    });
+
+    it("Enter Email", () => {
+      cy.fixture(FIXTURE).then((data) => {
+        cy.enterEmail(data.email);
+      })
+    });
+
+    it("Click book button", () => {
+      cy.clickBook();
+      cy.wait(500);
+    });
+
+    it("Click finish button", () => {
+      cy.clickFinish();
+    });
   });
 });

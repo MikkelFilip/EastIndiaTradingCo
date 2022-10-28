@@ -4,6 +4,10 @@ namespace EITBackend.Common.Adapters.IAdapters
 {
     public interface IConnectedCitiesSegmentAdapter
     {
+        List<ConnectedCitiesSegment> GetAll();
+
         IEnumerable<ConnectedCitiesSegment> GetConnectedCitiesSegment(string name);
+
+        int GetSegmentFromBothCitiesIds(int sourceCityId, int targetCityId);
     }
 }

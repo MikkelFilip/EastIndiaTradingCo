@@ -1,6 +1,11 @@
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import { DataService } from 'src/app/services/dataService';
+import { LoadingScreenService } from 'src/app/services/loading.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-information-page',
@@ -16,6 +21,10 @@ export class InformationPageComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
+    private dataService: DataService,
+    private http: HttpClient,
+    private toastService: ToastService,
+    private loadingService: LoadingScreenService,
   ) {}
 
   ngOnInit(): void {
@@ -29,7 +38,38 @@ export class InformationPageComponent implements OnInit {
   }
 
   public submit() {
-    this.router.navigateByUrl("/confirmation");
+    var searchingParameters = this.dataService.searchingParameters;
+    var selectedRoute = this.dataService.selectedRoute;
+    
+    this.loadingService.show();
+    this.http.post("https://wa-eit-dk1.azurewebsites.net/BookingHistory", {
+      fromCityId: searchingParameters.from.cityId,
+      toCityId: searchingParameters.to.cityId,
+      date: this.ngbDateToString(searchingParameters.date),
+      duration: selectedRoute.duration,
+      price: selectedRoute.price,
+      contentTypeId: searchingParameters.cargoType.contentTypeId,
+      packageType: searchingParameters.cargoSize.value,
+      customerName: this.form.value.name,
+      customerEmail: this.form.value.email,
+    })
+      .subscribe({
+        next: (result) => {
+          this.dataService.bookedShipment = result;
+          this.router.navigateByUrl("/confirmation");
+        },
+        error: (err: HttpErrorResponse) => {
+          if (err.status == 503) {
+            this.toastService.show("Email service is unvailable", { classname: 'bg-danger text-light', delay: 5000 });
+            this.router.navigateByUrl("/confirmation");
+          } else {
+            this.toastService.show("Error: " + err.message, { classname: 'bg-danger text-light', delay: 5000 });
+          }
+          
+        }
+      })
+      .add(() => { this.loadingService.hidden() });
+
   }
 
   public isFormControlInvalid(formControlName: string): boolean {
@@ -40,5 +80,9 @@ export class InformationPageComponent implements OnInit {
 
   public isFormControlHasError(formControlName: string, errorName: string): boolean {
     return this.form.controls[formControlName].errors?.[errorName];
+  }
+
+  private ngbDateToString(date: NgbDate) {
+    return date.year + "-" + date.month + "-" + date.day;
   }
 }
