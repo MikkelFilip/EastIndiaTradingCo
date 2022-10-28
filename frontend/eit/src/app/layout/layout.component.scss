@@ -30,6 +30,22 @@
   }
 }
 
+.wrapper-menu-icon {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  .menu-icon {
+    padding: 5px 12px;
+    color: white;
+    border: solid 1px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .dropdown-toggle::after {
+    display: none;
+  }
+}
+
 @media screen and (min-width: 992px) {
   .body {
     .content {

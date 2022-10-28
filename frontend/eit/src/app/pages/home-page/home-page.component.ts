@@ -175,6 +175,11 @@ export class HomePageComponent implements OnInit {
     this.http.post('https://wa-eit-dk1.azurewebsites.net/PossibleRoutes', body)
       .subscribe({
         next: (result: any) => {
+          if(result.length == 0) {
+            this.toastService.show("Not found any possible routes", { classname: 'bg-danger text-light', delay: 5000 });
+            return;
+          }
+
           result.forEach((route: any) => {
             route.cities = this.routeToCities(route);
             route.isCollapsed = true;
@@ -183,6 +188,10 @@ export class HomePageComponent implements OnInit {
           this.router.navigateByUrl("/routes");
         },
         error: (err: HttpErrorResponse) => {
+          if (err.status == 404) {
+            this.toastService.show("Not found any possible routes", { classname: 'bg-danger text-light', delay: 5000 });
+            return;
+          }
           this.toastService.show("Error: " + err.message, { classname: 'bg-danger text-light', delay: 5000 });
         }
       })
