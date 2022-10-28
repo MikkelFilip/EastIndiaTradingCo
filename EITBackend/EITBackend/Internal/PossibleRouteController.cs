@@ -1,4 +1,5 @@
-﻿using EITBackend.Common.Models;
+﻿using System;
+using EITBackend.Common.Models;
 using EITBackend.Common.Services.IServices;
 using Microsoft.AspNetCore.Mvc;
 using QuikGraph;
@@ -23,9 +24,15 @@ namespace EITBackend.Internal
         [HttpGet()]
         public IActionResult GetPossibleRoutes(int fromCityId, int toCityId)
         {
-            var result = _possibleRouteService.GetPossibleRoutes(fromCityId, toCityId);
-            return Ok(result);
+            try
+            {
+                var result = _possibleRouteService.GetPossibleRoutes(fromCityId, toCityId);
+                return Ok(result);
 
+            } catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
     }
 }

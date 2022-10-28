@@ -29,5 +29,12 @@ namespace EITBackend.Common.Adapters
         {
             return context.connectedCitiesSegments.Where(segment => segment.FromCityId == city.CityId).ToList();
         }
+
+        public int GetSegmentFromBothCitiesIds(int sourceCityId, int targetCityId )
+        {
+            return context.connectedCitiesSegments
+                .Where(segment => segment.FromCityId == sourceCityId && segment.ToCityId == targetCityId)
+                .Select(segment => segment.Segments).FirstOrDefault();
+        }
     }
 }

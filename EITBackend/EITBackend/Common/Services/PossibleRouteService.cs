@@ -29,6 +29,8 @@ namespace EITBackend.Common.Services
             var fw = new FloydWarshallAllShortestPathAlgorithm<int, Edge<int>>(graph, (edge) => findWeight(connectedCitiesSegments, edge));
 
             var algo = new HoffmanPavleyRankedShortestPathAlgorithm<int, Edge<int>>(graph, (edge) => findWeight(connectedCitiesSegments, edge));
+
+
             algo.Compute(fromCityId, toCityId);
 
             foreach (ICollection<Edge<int>> path in algo.ComputedShortestPaths)
@@ -49,7 +51,7 @@ namespace EITBackend.Common.Services
                 From = fromCity!,
                 To = toCity!,
                 Path = path,
-                Duration = 10,
+                Duration = this.calculateTotalDurationOfPath(path),
                 Price = 10,
                 Companies = generateCompanies(path.Count())
             });
@@ -74,5 +76,18 @@ namespace EITBackend.Common.Services
             }
             return companies;
         }
+
+        private int calculateTotalDurationOfPath(IEnumerable<Edge<int>> path)
+        {
+            int totalDuration = 0;
+            foreach (Edge<int> edge in path)
+            {
+                int duration = _adapter.GetSegmentFromBothCitiesIds(edge.Source, edge.Target);
+                totalDuration += duration * 12;
+            }
+            return totalDuration;
+        }
+
+
     }
 }
