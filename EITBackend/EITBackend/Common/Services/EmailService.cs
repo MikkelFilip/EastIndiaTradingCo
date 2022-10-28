@@ -9,9 +9,9 @@ namespace EITBackend.Common.Services
         public void sendEmail(string reciver, string subject, string body)
         {
 
-        var fromAddress = new MailAddress("eastindiatrading4thewin@gmail.com");
+        var fromAddress = new MailAddress("eit4thewin@gmail.com");
         var toAddress = new MailAddress(reciver);
-        const string fromPassword = "opbzxyhutstrpylg";
+        const string fromPassword = "clclzgjoukjcpvpe";
 
         var smtp = new SmtpClient
         {
