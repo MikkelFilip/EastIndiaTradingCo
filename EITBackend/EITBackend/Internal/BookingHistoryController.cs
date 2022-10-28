@@ -2,6 +2,7 @@
 using EITBackend.Common.Models;
 using EITBackend.Common.Services.IServices;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Mail;
 
 namespace EITBackend.Internal
 {
@@ -22,7 +23,15 @@ namespace EITBackend.Internal
         [HttpPost(Name = "PostBookingHistory")]
         public ActionResult<BookingHistory> PostBookingHistory([FromBody] BookingHistory request)
         {
-            return Ok(BookingHistoryService.PostBookingHistory(request));
+            try
+            {
+                var result = BookingHistoryService.PostBookingHistory(request);
+                return Ok(result);
+            } catch (SmtpException ex)
+            {
+                return StatusCode(503, ex.Message);
+            }
+            
         }
 
         [HttpGet("GetMostUsedRoutes")]
