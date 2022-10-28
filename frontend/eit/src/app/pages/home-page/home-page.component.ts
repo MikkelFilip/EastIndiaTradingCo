@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http'
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { DataService } from 'src/app/services/dataService';
 import { LoadingScreenService } from 'src/app/services/loading.service';
 import { ToastService } from 'src/app/services/toast.service';
@@ -29,26 +29,26 @@ export class HomePageComponent implements OnInit {
 
   public cargoTypeOptions = [
     {
-      id: 1,
+      contentTypeId: 1,
       name: "Weapons"
     },
     {
-      id: 2,
+      contentTypeId: 2,
       name: "Live animals"
     },
     {
-      id: 3,
+      contentTypeId: 3,
       name: "Refrigerated goods"
     },
     {
-      id: 4,
+      contentTypeId: 4,
       name: "Other"
     }
   ]
 
   public cargoSizeOptions = [
     {
-      value: "Small package",
+      value: "SmallPackage",
       label: "Small package (25x25x25)",
     },
     {
@@ -167,7 +167,15 @@ export class HomePageComponent implements OnInit {
       .append('fromCityId', this.form.value.from.cityId)
       .append('toCityId', this.form.value.to.cityId);
     this.loadingService.show();
-    this.http.get('https://wa-eit-dk1.azurewebsites.net/PossibleRoutes', { params: params })
+    var body = {
+      from: this.form.value.from,
+      to: this.form.value.to,
+      date: this.ngbDateToString(this.form.value.date),
+      contentType: this.form.value.cargoType,
+      packageType: this.form.value.cargoSize.value,
+      weight: this.form.value.weight,
+    }
+    this.http.post('https://wa-eit-dk1.azurewebsites.net/PossibleRoutes', body)
       .subscribe({
         next: (result: any) => {
           result.forEach((route: any) => {
@@ -214,5 +222,9 @@ export class HomePageComponent implements OnInit {
 
   private convertCityIdToCityName(cityId: string): string {
     return this.locationOptions.find(location => location.cityId == cityId)!.name;
+  }
+
+  private ngbDateToString(date: NgbDate) {
+    return date.year + "-" + date.month + "-" + date.day;
   }
 }
