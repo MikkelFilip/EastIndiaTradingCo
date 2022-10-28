@@ -48,7 +48,7 @@ export class InformationPageComponent implements OnInit {
       date: this.ngbDateToString(searchingParameters.date),
       duration: selectedRoute.duration,
       price: selectedRoute.price,
-      contentTypeId: searchingParameters.cargoType.id,
+      contentTypeId: searchingParameters.cargoType.contentTypeId,
       packageType: searchingParameters.cargoSize.value,
       customerName: this.form.value.name,
       customerEmail: this.form.value.email,

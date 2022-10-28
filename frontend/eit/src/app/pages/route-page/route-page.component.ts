@@ -27,6 +27,7 @@ export class RoutePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.routes = this.dataService.possiableRoutes;
+    console.log(this.dataService.possiableRoutes);
     this.sortRoute();
   }
 
