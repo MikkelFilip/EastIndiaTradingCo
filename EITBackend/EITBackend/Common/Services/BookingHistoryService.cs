@@ -12,9 +12,10 @@ namespace EITBackend.Common.Services
         /// </summary>
         /// <param name="transportOperatorAdapter">TransportOperator Adapter for connecting Drip.</param>
         /// <param name="logger">Logger.</param>
-        public BookingHistoryService(IBookingHistoryAdapter bookingHistoryAdapter, ILogger<BookingHistoryService> logger)
+        public BookingHistoryService(IBookingHistoryAdapter bookingHistoryAdapter, IEmailService emailService, ILogger<BookingHistoryService> logger)
         {
             BookingHistoryAdapter = bookingHistoryAdapter;
+            EmailService = emailService;
             Logger = logger;
             Logger.LogInformation($"{nameof(BookingHistoryService)} created");
         }
@@ -23,6 +24,8 @@ namespace EITBackend.Common.Services
 
         private ILogger<BookingHistoryService> Logger { get; }
 
+        private IEmailService EmailService { get; }
+
         public List<MostUsedRoute> GetMostUsedRoutes()
         {
             return BookingHistoryAdapter.GetMostUsedRoutes();
@@ -30,7 +33,9 @@ namespace EITBackend.Common.Services
 
         public BookingHistory PostBookingHistory(BookingHistory bookingHistory)
         {
-            return BookingHistoryAdapter.PostBookingHistory(bookingHistory);
+            BookingHistory returnedBooking =  BookingHistoryAdapter.PostBookingHistory(bookingHistory);
+            EmailService.sendEmail(returnedBooking.CustomerEmail, "EIT Booking Confirmation: #" + returnedBooking.BookingId, returnedBooking.ToString());
+            return returnedBooking;
         }
     }
 }

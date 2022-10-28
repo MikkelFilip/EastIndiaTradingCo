@@ -29,7 +29,6 @@ namespace EITBackend.Common.Services
             var edges = connectedCitiesSegments.Select(connecting => new Edge<int>(connecting.FromCityId, connecting.ToCityId));
 
             var graph = edges.ToBidirectionalGraph<int, Edge<int>>();
-            var fw = new FloydWarshallAllShortestPathAlgorithm<int, Edge<int>>(graph, (edge) => findWeight(connectedCitiesSegments, edge));
 
             var algo = new HoffmanPavleyRankedShortestPathAlgorithm<int, Edge<int>>(graph, (edge) => findWeight(connectedCitiesSegments, edge));
 
