@@ -18,7 +18,6 @@ export class ConfirmationPageComponent implements OnInit {
   constructor(public dataService: DataService) { }
 
   ngOnInit(): void {
-    console.log(this.dataService);
   }
 
   public ngbDateToString(date: NgbDate) {

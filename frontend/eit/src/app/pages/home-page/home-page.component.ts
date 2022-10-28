@@ -112,60 +112,57 @@ export class HomePageComponent implements OnInit {
     }
 
     //TODO: Mock, remove after has Api
-    this.dataService.possiableRoutes = [
-      {
-        id: "1",
-        duration: 12,
-        price: 100,
-        cities: [
-          "Cairo", "Omdurman", "Darfur", "Congo"
-        ],
-        companies: [
-          "TL", "TL", "OA"
-        ],
-        isExpanded: true,
-      },
-      {
-        id: "2",
-        duration: 15,
-        price: 90,
-        cities: [
-          "Cairo", "Omdurman", "Darfur", "Congo"
-        ],
-        companies: [
-          "TL", "TL", "OA"
-        ],
-        isExpanded: true,
-      },
-      {
-        id: "3",
-        duration: 8,
-        price: 80,
-        cities: [
-          "Cairo", "Omdurman", "Darfur", "Congo"
-        ],
-        companies: [
-          "TL", "TL", "OA"
-        ],
-        isExpanded: true,
-      },
-      {
-        id: "4",
-        duration: 5,
-        price: 200,
-        cities: [
-          "Cairo", "Omdurman", "Darfur", "Congo"
-        ],
-        companies: [
-          "TL", "TL", "OA"
-        ],
-        isExpanded: true,
-      }
-    ]
+    // this.dataService.possiableRoutes = [
+    //   {
+    //     id: "1",
+    //     duration: 12,
+    //     price: 100,
+    //     cities: [
+    //       "Cairo", "Omdurman", "Darfur", "Congo"
+    //     ],
+    //     companies: [
+    //       "TL", "TL", "OA"
+    //     ],
+    //     isExpanded: true,
+    //   },
+    //   {
+    //     id: "2",
+    //     duration: 15,
+    //     price: 90,
+    //     cities: [
+    //       "Cairo", "Omdurman", "Darfur", "Congo"
+    //     ],
+    //     companies: [
+    //       "TL", "TL", "OA"
+    //     ],
+    //     isExpanded: true,
+    //   },
+    //   {
+    //     id: "3",
+    //     duration: 8,
+    //     price: 80,
+    //     cities: [
+    //       "Cairo", "Omdurman", "Darfur", "Congo"
+    //     ],
+    //     companies: [
+    //       "TL", "TL", "OA"
+    //     ],
+    //     isExpanded: true,
+    //   },
+    //   {
+    //     id: "4",
+    //     duration: 5,
+    //     price: 200,
+    //     cities: [
+    //       "Cairo", "Omdurman", "Darfur", "Congo"
+    //     ],
+    //     companies: [
+    //       "TL", "TL", "OA"
+    //     ],
+    //     isExpanded: true,
+    //   }
+    // ]
 
-    const params = new HttpParams()
-      .append('fromCityId', this.form.value.from.cityId)
-      .append('toCityId', this.form.value.to.cityId);
     this.loadingService.show();
     var body = {
       from: this.form.value.from,
@@ -175,14 +172,13 @@ export class HomePageComponent implements OnInit {
       packageType: this.form.value.cargoSize.value,
       weight: this.form.value.weight,
     }
-    this.http.post('https://wa-eit-dk1.azurewebsites.net/PossibleRoutes', body)
+    this.http.post('https://localhost:7022/PossibleRoutes', body)
       .subscribe({
         next: (result: any) => {
           result.forEach((route: any) => {
             route.cities = this.routeToCities(route);
             route.isCollapsed = true;
           })
-          console.log(result);
           this.dataService.possiableRoutes = result;
           this.router.navigateByUrl("/routes");
         },
@@ -191,11 +187,6 @@ export class HomePageComponent implements OnInit {
         }
       })
       .add(() => { this.loadingService.hidden() });
-
-
-    // console.log(this.form.value);
-    // this.toastService.show("Hello", {classname: 'bg-danger text-light', delay: 5000});
-    // this.loadingService.show();
   }
 
   public isFormControlInvalid(formControlName: string): boolean {
@@ -212,7 +203,6 @@ export class HomePageComponent implements OnInit {
     var cities: string[] = [];
     route.path.forEach((edge: any, index: number) => {
       cities.push(edge.source);
-      console.log(index + 1, route.path.length)
       if (index + 1 == route.path.length) {
         cities.push(edge.target);
       }
