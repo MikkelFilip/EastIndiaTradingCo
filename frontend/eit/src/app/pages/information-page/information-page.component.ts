@@ -59,7 +59,13 @@ export class InformationPageComponent implements OnInit {
           this.router.navigateByUrl("/confirmation");
         },
         error: (err: HttpErrorResponse) => {
-          this.toastService.show("Error: " + err.message, { classname: 'bg-danger text-light', delay: 5000 });
+          if (err.status == 503) {
+            this.toastService.show("Email service is unvailable", { classname: 'bg-danger text-light', delay: 5000 });
+            this.router.navigateByUrl("/confirmation");
+          } else {
+            this.toastService.show("Error: " + err.message, { classname: 'bg-danger text-light', delay: 5000 });
+          }
+          
         }
       })
       .add(() => { this.loadingService.hidden() });
