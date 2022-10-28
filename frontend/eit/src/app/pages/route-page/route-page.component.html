@@ -1,7 +1,10 @@
 <div class="page-wrapper d-flex flex-column flex-grow-1">
   <div class="page-title">Routes</div>
   <div class="d-flex justify-content-between align-items-center mb-3">
-    <div>Search: Cairo -> Congo</div>
+    <div>
+      <div>Search:</div>
+      <div *ngIf="routes">{{routes[0].from.name}} -> {{routes[0].to.name}}</div>
+    </div>
     <select
       class="sort-by-input form-select"
       [(ngModel)]="selectedSortBy"
@@ -27,9 +30,8 @@
             <div>Price: {{ route.price }}$</div>
           </div>
           <i
-            class="fa fa-caret-down cursor-pointer"  [ngClass]="route.isCollapsed ? 'fa-caret-down' : 'fa-caret-up'"
+            class="fa fa-caret-down cursor-pointer"  [ngClass]="!route.isCollapsed ? 'fa-caret-up' : 'fa-caret-down'"
             (click)="collapse.toggle()"
-            [attr.aria-expanded]="!route.isCollapsed"
           >
           </i>
         </div>

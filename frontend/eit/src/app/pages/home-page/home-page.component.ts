@@ -1,9 +1,9 @@
 import { formatDate } from '@angular/common';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { DataService } from 'src/app/services/dataService';
 import { LoadingScreenService } from 'src/app/services/loading.service';
 import { ToastService } from 'src/app/services/toast.service';
@@ -19,8 +19,8 @@ import { ToastService } from 'src/app/services/toast.service';
 export class HomePageComponent implements OnInit {
   public form!: FormGroup;
 
-  public locationOptions = [
-    "Cargo", "Congo", "Sahara", "Obama",
+  public locationOptions: any[] = [
+    // "Cargo", "Congo", "Sahara", "Obama",
   ]
 
   public sortByOptions = [
@@ -29,26 +29,26 @@ export class HomePageComponent implements OnInit {
 
   public cargoTypeOptions = [
     {
-      id: 1,
+      contentTypeId: 1,
       name: "Weapons"
     },
     {
-      id: 2,
+      contentTypeId: 2,
       name: "Live animals"
     },
     {
-      id: 3,
+      contentTypeId: 3,
       name: "Refrigerated goods"
     },
     {
-      id: 4,
+      contentTypeId: 4,
       name: "Other"
     }
   ]
 
   public cargoSizeOptions = [
     {
-      value: "Small package",
+      value: "SmallPackage",
       label: "Small package (25x25x25)",
     },
     {
@@ -123,7 +123,7 @@ export class HomePageComponent implements OnInit {
         companies: [
           "TL", "TL", "OA"
         ],
-        isCollapsed: true,
+        isExpanded: true,
       },
       {
         id: "2",
@@ -135,7 +135,7 @@ export class HomePageComponent implements OnInit {
         companies: [
           "TL", "TL", "OA"
         ],
-        isCollapsed: true,
+        isExpanded: true,
       },
       {
         id: "3",
@@ -147,7 +147,7 @@ export class HomePageComponent implements OnInit {
         companies: [
           "TL", "TL", "OA"
         ],
-        isCollapsed: true,
+        isExpanded: true,
       },
       {
         id: "4",
@@ -159,10 +159,40 @@ export class HomePageComponent implements OnInit {
         companies: [
           "TL", "TL", "OA"
         ],
-        isCollapsed: true,
+        isExpanded: true,
       }
     ]
-    this.router.navigateByUrl("/routes");
+
+    const params = new HttpParams()
+      .append('fromCityId', this.form.value.from.cityId)
+      .append('toCityId', this.form.value.to.cityId);
+    this.loadingService.show();
+    var body = {
+      from: this.form.value.from,
+      to: this.form.value.to,
+      date: this.ngbDateToString(this.form.value.date),
+      contentType: this.form.value.cargoType,
+      packageType: this.form.value.cargoSize.value,
+      weight: this.form.value.weight,
+    }
+    this.http.post('https://wa-eit-dk1.azurewebsites.net/PossibleRoutes', body)
+      .subscribe({
+        next: (result: any) => {
+          result.forEach((route: any) => {
+            route.cities = this.routeToCities(route);
+            route.isCollapsed = true;
+          })
+          console.log(result);
+          this.dataService.possiableRoutes = result;
+          this.router.navigateByUrl("/routes");
+        },
+        error: (err: HttpErrorResponse) => {
+          this.toastService.show("Error: " + err.message, { classname: 'bg-danger text-light', delay: 5000 });
+        }
+      })
+      .add(() => { this.loadingService.hidden() });
+
+
     // console.log(this.form.value);
     // this.toastService.show("Hello", {classname: 'bg-danger text-light', delay: 5000});
     // this.loadingService.show();
@@ -176,5 +206,25 @@ export class HomePageComponent implements OnInit {
 
   public isFormControlHasError(formControlName: string, errorName: string): boolean {
     return this.form.controls[formControlName].errors?.[errorName];
+  }
+
+  private routeToCities(route: any): string[] {
+    var cities: string[] = [];
+    route.path.forEach((edge: any, index: number) => {
+      cities.push(edge.source);
+      console.log(index + 1, route.path.length)
+      if (index + 1 == route.path.length) {
+        cities.push(edge.target);
+      }
+    });
+    return cities.map(cityId => this.convertCityIdToCityName(cityId));
+  }
+
+  private convertCityIdToCityName(cityId: string): string {
+    return this.locationOptions.find(location => location.cityId == cityId)!.name;
+  }
+
+  private ngbDateToString(date: NgbDate) {
+    return date.year + "-" + date.month + "-" + date.day;
   }
 }
